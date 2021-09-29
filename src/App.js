@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './components/Navbar.js';
+import './App.scss';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+
 
 function App() {
   return (
+    <Router>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
+        <header className="App-header">
+          <Navbar/>
+        </header>
+
+        <Switch>
+          <Route path="/about">
+            <h1>ZZOOM aBOUT</h1>
+          </Route>
+          <Route path="/users">
+             <h1>ZZOOM users</h1>
+          </Route>
+          <Route path="/" exact>
+            <h1>ZZOOM Home</h1>
+          </Route>
+        </Switch>
+          
+     
+      
     </div>
+    </Router>
   );
 }
 

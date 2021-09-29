@@ -1,0 +1,38 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  @extend .flex-row;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  justify-content: space-between;
+  height: 63px;
+  box-shadow: 0 0 2px #00000033;
+  .left-nav {
+    @extend .flex-row;
+    height: 100%;
+    a {
+      height: 100%;
+      @extend .flex-row;
+      img.logo-img {
+        width: 200px;
+      }
+    }
+  }
+  .right-nav {
+    @extend .flex-row;
+    height: 100%;
+    button.tab-btn {
+      height: 100%;
+      background-color: white;
+      outline: none;
+      border: 1px solid grey;
+      padding: 0 15px;
+    }
+  }
+}
