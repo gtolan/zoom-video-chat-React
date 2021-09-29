@@ -1,12 +1,11 @@
 import '../styles/Navbar.scss';
 import { Link } from 'react-router-dom';
 import zzoomLogo from '../images/zzoomLogo.png';
-
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
     console.log('Navbar render')
-    const screenWidth = window.screen.width;
-    console.log(screenWidth)
+
     return (
         <nav>   
             <div className="left-nav">
@@ -17,17 +16,29 @@ const Navbar = () => {
             <div className="right-nav">
 
                 <button className="tab-btn join">
-                    {screenWidth > 600 ? 'Join a meeting' : 'Join'}
+                    <span className="mobile">
+                        Join
+                    </span>
+                    <span className="desktop">
+                        Join a meeting
+                    </span>
                 </button>  
                 <button className="tab-btn host">
-                    {screenWidth > 600 ? 'Host a meeting' : 'Join'}
-                    {screenWidth > 600 ? `chev` : ''}
+                    <span className="mobile">
+                        Host
+                    </span>
+                    <span className="desktop">
+                        Host a meeting
+                    </span>
                 </button> 
                 <button className="tab-btn sign-in">
-                    {screenWidth > 600 ? 'Sign in' : ''}
+                    Sign in
                 </button>  
                 <button className="tab-btn sign-up">
-                    {screenWidth > 600 ? `Sign up, it's free` : ''}
+                    Sign up, it's free
+                </button>  
+                <button className="tab-btn hamburger">
+                    HAM
                 </button>      
             </div>
         </nav>

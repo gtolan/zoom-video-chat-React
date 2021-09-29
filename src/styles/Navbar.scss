@@ -21,18 +21,94 @@ nav {
       @extend .flex-row;
       img.logo-img {
         width: 200px;
+        margin-left: -13px;
       }
     }
   }
   .right-nav {
     @extend .flex-row;
     height: 100%;
+
     button.tab-btn {
       height: 100%;
       background-color: white;
       outline: none;
-      border: 1px solid grey;
+
       padding: 0 15px;
+      color: #1164c3;
+      font-weight: 600;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      &.sign-up,
+      &.sign-in {
+        display: none;
+      }
+      span.desktop {
+        display: none;
+      }
+      span.mobile {
+        display: block;
+      }
+      span.hamburger {
+        display: block;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 0px) and (max-width: 350px) {
+  nav {
+    .left-nav {
+      a {
+        img.logo-img {
+          width: 100px;
+          margin-left: 0px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 770px) {
+  nav {
+    .right-nav {
+      button.tab-btn {
+        height: 100%;
+        background-color: white;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        padding: 0 15px;
+        color: #1164c3;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        span.desktop {
+          display: block;
+        }
+        span.mobile {
+          display: none;
+        }
+        &.hamburger {
+          display: none;
+        }
+        &.sign-up {
+          font-size: 15px;
+          color: white;
+          background-color: #f26d21;
+          height: 33px;
+          border-radius: 5px;
+          margin: auto 10px;
+          border: none;
+          outline: none;
+          font-weight: 500;
+          display: block;
+        }
+        &.sign-in {
+          display: block;
+        }
+      }
     }
   }
 }
