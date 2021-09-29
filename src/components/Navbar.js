@@ -45,8 +45,8 @@ const Navbar = () => {
                 </button>  
                 <button className="tab-btn hamburger" onClick={toggleHamburder}>
                     <div className={`hamburger hamburger--3dx ${hamburderIsOpen ? 'is-active' : ''}`}>
-                        <div class="hamburger-box">
-                        <div class="hamburger-inner"></div>
+                        <div className="hamburger-box">
+                        <div className="hamburger-inner"></div>
                         </div>
                     </div>
                 </button>      

@@ -8,13 +8,17 @@ const HomePage = () => {
     return (
         <main className="homepage">
             <section>
-                <form>
+                
                     <p className="title">Meeting ID or Personal Link Name</p>
-                    <input type="text" name="meeting-code" onChange={inputChanged} placeholder="Enter Meeting ID or Personal Link Name"/>
-                    <button className="submit" type="submit" disabled>
-                        Join
-                    </button>
-                </form>
+                    <form>
+                        <input type="text" name="meeting-code" onChange={inputChanged} placeholder="Enter Meeting ID or Personal Link Name"/>
+                        <p className="meeting-terms">
+                            By clicking "Join", you agree to our Terms of Services and Privacy Statement
+                        </p>
+                        <button className="submit" type="submit" disabled>
+                            Join
+                        </button>
+                    </form>
             </section>
         </main>
     )
