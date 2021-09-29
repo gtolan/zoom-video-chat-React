@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar.js';
 import './App.scss';
+import HomePage from './components/HomePage.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,7 +25,8 @@ function App() {
              <h1>ZZOOM users</h1>
           </Route>
           <Route path="/" exact>
-            <h1>ZZOOM Home</h1>
+
+            <HomePage/>
           </Route>
         </Switch>
           

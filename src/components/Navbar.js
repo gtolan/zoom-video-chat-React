@@ -6,6 +6,12 @@ import { useEffect, useState } from 'react';
 const Navbar = () => {
     console.log('Navbar render')
 
+    const [hamburderIsOpen, setHamburgerToggle] = useState(false)
+
+    const toggleHamburder = () => {
+            setHamburgerToggle(!hamburderIsOpen);
+    }
+
     return (
         <nav>   
             <div className="left-nav">
@@ -37,8 +43,12 @@ const Navbar = () => {
                 <button className="tab-btn sign-up">
                     Sign up, it's free
                 </button>  
-                <button className="tab-btn hamburger">
-                    HAM
+                <button className="tab-btn hamburger" onClick={toggleHamburder}>
+                    <div className={`hamburger hamburger--3dx ${hamburderIsOpen ? 'is-active' : ''}`}>
+                        <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                        </div>
+                    </div>
                 </button>      
             </div>
         </nav>
