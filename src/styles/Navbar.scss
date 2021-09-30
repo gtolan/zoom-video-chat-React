@@ -55,6 +55,59 @@ nav {
         display: block;
       }
     }
+    button.hamburger {
+      .hamburger-dropdown-menu {
+        display: inline-block;
+        transform: scaleY(0);
+        visibility: hidden;
+        position: absolute;
+        width: 100vw;
+        right: 0;
+        text-align: left;
+        transition: 0.6s;
+        transform-origin: top;
+        top: 0;
+        margin-top: 63px;
+        ul {
+          background-color: #eaeaea;
+          margin: 0;
+          font-size: 12px;
+
+          list-style: none;
+          padding-left: 0px;
+          li {
+            // padding: 10px;
+            border-bottom: 1px solid #e3e3e3;
+            padding-left: 10px;
+            a {
+              text-decoration: none;
+              color: black;
+              height: 100%;
+              display: block;
+              position: relative;
+              padding: 10px;
+            }
+            &:hover {
+              background-color: #08c;
+
+              a {
+                color: white;
+              }
+            }
+          }
+        }
+        &.is-active {
+          transform: scaleY(1);
+          visibility: visible;
+          position: absolute;
+          width: 100vw;
+          right: 0;
+          text-align: left;
+          top: 0;
+          margin-top: 63px;
+        }
+      }
+    }
   }
 }
 
@@ -170,6 +223,11 @@ nav {
         }
       }
     }
+    button.hamburger-dropdown-menu {
+      display: none;
+      transform: scale(0);
+      visibility: hidden;
+    }
   }
 }
 
@@ -201,10 +259,10 @@ button.tab-btn.hamburger {
   overflow: visible;
 }
 .hamburger:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .hamburger.is-active:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .hamburger.is-active .hamburger-inner,
 .hamburger.is-active .hamburger-inner::before,

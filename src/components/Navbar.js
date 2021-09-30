@@ -57,7 +57,17 @@ const Navbar = () => {
                         <div className="hamburger-inner"></div>
                         </div>
                     </div>
-                </button>      
+                    <div className={`hamburger-dropdown-menu ${hamburderIsOpen ? 'is-active' : ''}`}>
+                    <ul>
+                        <li><Link to="/demo">Request a Demo</Link></li>
+                        <li><Link to="/faq">FAQ</Link></li>
+                        <li><Link to="/support">Support</Link></li>
+                        <li><Link to="/sign-in">Sign In</Link></li>
+                        <li><Link to="/sign-up">Sign Up</Link></li>
+                    </ul>    
+                </div>   
+                </button>  
+                 
             </div>
         </nav>
     )
