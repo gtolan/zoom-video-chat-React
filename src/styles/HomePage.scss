@@ -1,9 +1,12 @@
 main.homepage {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  margin-top: 5rem;
+  min-height: 100vh;
   section {
+    margin-top: 5rem;
     p.title {
       color: #747486;
       font-size: 13px;
@@ -22,8 +25,8 @@ main.homepage {
         padding: 0 10px;
         margin-bottom: 5px;
         padding: 0 10px;
-        border-radius: 3px;
-        border: 1px solid #b1acac;
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
       }
       p.meeting-terms {
         font-size: 15px;

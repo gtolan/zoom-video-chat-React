@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import '../styles/HomePage.scss';
 
 const HomePage = () => {
-    const inputChanged = () => {
-            console.log('input changed')
+    const [btnDisabled, toggleBtnDisabled] = useState(true)
+    const inputChanged = (e) => {
+            e.target.value.length > 5 ?
+            (toggleBtnDisabled(btnDisabled)) :
+            (toggleBtnDisabled(!btnDisabled))
     }
 
     return (
@@ -15,7 +19,7 @@ const HomePage = () => {
                         <p className="meeting-terms">
                             By clicking "Join", you agree to our Terms of Services and Privacy Statement
                         </p>
-                        <button className="submit" type="submit" disabled>
+                        <button className="submit" type="submit" disabled={btnDisabled}>
                             Join
                         </button>
                     </form>
