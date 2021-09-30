@@ -4,9 +4,10 @@ import '../styles/HomePage.scss';
 const HomePage = () => {
     const [btnDisabled, toggleBtnDisabled] = useState(true)
     const inputChanged = (e) => {
+        console.log(btnDisabled, e.target.value.length)
             e.target.value.length > 5 ?
-            (toggleBtnDisabled(btnDisabled)) :
-            (toggleBtnDisabled(!btnDisabled))
+            (toggleBtnDisabled(false)) :
+            (toggleBtnDisabled(true))
     }
 
     return (

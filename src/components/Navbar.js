@@ -1,7 +1,8 @@
 import '../styles/Navbar.scss';
 import { Link } from 'react-router-dom';
 import zzoomLogo from '../images/zzoomLogo.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
 
 const Navbar = () => {
     console.log('Navbar render')
@@ -34,7 +35,14 @@ const Navbar = () => {
                         Host
                     </span>
                     <span className="desktop">
-                        Host a meeting
+                        Host a meeting <span className="menu-chevron">{'\u25BC'}</span>
+                    </span>
+                    <span className="desktop menu-dropdown">
+                        <ul>
+                            <li><Link to="/meeting/with-video">With Video Off</Link></li>
+                            <li><Link to="/meeting/without-video">With Video On</Link></li>
+                            <li><Link to="/meeting/screen-share">Screen Share Only</Link></li>
+                        </ul>
                     </span>
                 </button> 
                 <button className="tab-btn sign-in">

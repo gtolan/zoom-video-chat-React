@@ -40,6 +40,7 @@ nav {
       text-transform: uppercase;
       border: none;
       cursor: pointer;
+
       &.sign-up,
       &.sign-in {
         display: none;
@@ -84,6 +85,65 @@ nav {
         font-weight: 600;
         font-size: 13px;
         text-transform: uppercase;
+        span.desktop.menu-dropdown {
+          ul {
+            display: inline-block;
+            transform: scale(0);
+            transform-origin: left;
+            transition: 0.6s;
+            position: absolute;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            margin-top: 1rem;
+            margin-left: -5rem;
+            li {
+              width: 100%;
+              margin: 6px 0;
+              a {
+                color: black;
+                font-weight: 200;
+                text-transform: none;
+                width: 100%;
+                display: inline-block;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+        &:hover {
+          span.desktop {
+            span.menu-chevron {
+              position: relative;
+              transform: rotate(180deg);
+              display: inline-block;
+              transition: 0.7s ease-in-out;
+            }
+          }
+          span.desktop.menu-dropdown {
+            ul {
+              margin: 0;
+              opacity: 1;
+              visibility: visible;
+              transform: scale(1);
+              padding: 1rem;
+              transform-origin: top;
+              position: absolute;
+              background-color: white;
+              box-shadow: 1px 1px 5px grey;
+              border-radius: 6px;
+              margin-top: 1rem;
+              margin-left: -5rem;
+              min-width: 106px;
+              text-align: left;
+              display: flex;
+              display: inline-block;
+              flex-direction: column;
+              justify-content: center;
+              align-items: flex-end;
+            }
+          }
+        }
         span.desktop {
           display: block;
         }
