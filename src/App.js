@@ -8,6 +8,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import MeetingRoom from './components/MeetingRoom.js';
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
               <Route path="/about">
                 <h1>ZZOOM aBOUT</h1>
               </Route>
+              <Router path="/meeting-room">
+                <MeetingRoom/>
+              </Router>
               <Route path="/faq">
                 <FAQs/>
               </Route>
