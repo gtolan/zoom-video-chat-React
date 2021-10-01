@@ -36,6 +36,20 @@ main.homepage {
         font-size: 18px;
         border: none;
         background-color: #d3d3d3b5;
+        background-color: #0f71eb;
+        color: white;
+        letter-spacing: 1px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      button:disabled,
+      button[disabled] {
+        height: 45px;
+        font-size: 18px;
+        border: none;
+        background-color: #d3d3d3b5;
+
+        color: black;
         letter-spacing: 1px;
         border-radius: 10px;
       }

@@ -40,7 +40,10 @@ nav {
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-
+      &.join:hover,
+      &.host:hover {
+        background-color: #eaeaea;
+      }
       &.sign-up,
       &.sign-in {
         display: none;
@@ -220,6 +223,9 @@ nav {
         }
         &.sign-in {
           display: block;
+          &:hover {
+            background-color: #eaeaea;
+          }
         }
       }
     }
