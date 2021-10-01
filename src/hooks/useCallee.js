@@ -6,12 +6,13 @@ import useCommon from './useCommon.js';
 const useCallee = async () => {
     const { gotSources, 
           hangup, 
-          getMedia, 
+          answerSdpTextarea,
           onCreateSessionDescriptionError, 
           onSetSessionDescriptionSuccess, 
+          createPeerConnectionButton,
           onSetSessionDescriptionError, 
           createOfferButton,
-          gotRemoteStream } = useCommon();
+            } = await useCommon();
 
     console.log('use callee')
     try {
@@ -20,20 +21,22 @@ const useCallee = async () => {
     } catch (e) {
         console.log(e);
     }
-
+    let localStream;
+     const localVideo = document.querySelector('div#local video');
 
   //GET ELEMENTS - CALLEE    -- AFTER OFFER HAS BEEN SENT (FROM SET OFFER?)
-  const createAnswerButton = document.querySelector('button#createAnswer');
-  const setAnswerButton = document.querySelector('button#setAnswer');
-  const hangupButton = document.querySelector('button#hangup');
+   const createAnswerButton = document.querySelector('button#createAnswer');
+   const setAnswerButton = document.querySelector('button#setAnswer');
+   const hangupButton = document.querySelector('button#hangup');
 
   //ADD BUTTON EVENTS- CALLEE
   createAnswerButton.onclick = createAnswer;
   setAnswerButton.onclick = setAnswer;
   hangupButton.onclick = hangup;
+  
 
  
-  const answerSdpTextarea = document.querySelector('div#remote textarea');
+//   const answerSdpTextarea = document.querySelector('div#remote textarea');
 
   //ADD SELECT OPTION CHANGE EVENT - TO SELECT CAMERA OR AUDIO INPUT
   const audioSelect = document.querySelector('select#audioSrc');
@@ -105,6 +108,45 @@ const useCallee = async () => {
     createAnswerButton.disabled = true;
     setAnswerButton.disabled = false;
   }
+      //GET LOCAL DEVICE MEDIA OPTIONS - VIDEO AND AUDIO
+    async function getMedia() {
+        // getMediaButton.disabled = true;
+
+        if (localStream) {
+        localVideo.srcObject = null;
+        localStream.getTracks().forEach(track => track.stop());
+        }
+        const audioSource = audioSelect.value;
+        console.log(`Selected audio source: ${audioSource}`);
+        const videoSource = videoSelect.value;
+        console.log(`Selected video source: ${videoSource}`);
+
+        const constraints = {
+        audio: {
+            optional: [{
+            sourceId: audioSource
+            }]
+        },
+        video: {
+            optional: [{
+            sourceId: videoSource
+            }]
+        }
+        };
+        console.log('Requested local stream');
+        try {
+        const userMedia = await navigator.mediaDevices.getUserMedia(constraints);
+        gotStream(userMedia);
+        } catch (e) {
+        console.log('navigator.getUserMedia error: ', e);
+        }
+    }
+        function gotStream(stream) {
+        console.log('Received local stream', stream);
+        localVideo.srcObject = stream;
+        localStream = stream;
+        createPeerConnectionButton.disabled = false;
+    }
     
 }
 

@@ -1,4 +1,4 @@
-import useCaller from '../hooks/useCallee.js'
+import useCaller from '../hooks/useCaller.js'
 
 const Caller = () => {
 
