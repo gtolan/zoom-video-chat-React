@@ -4,6 +4,7 @@ const useMeeting = () => {
 
 async function init () {
       console.log('DOMContentLoaded');
+  //GET CAMERA AND AUDIO
   try {
     const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
     gotSources(enumerateDevices);
@@ -11,31 +12,38 @@ async function init () {
     console.log(e);
   }
 
+  //GET ELEMENTS - CALLER
   const getMediaButton = document.querySelector('button#getMedia');
   const createPeerConnectionButton = document.querySelector('button#createPeerConnection');
   const createOfferButton = document.querySelector('button#createOffer');
   const setOfferButton = document.querySelector('button#setOffer');
+
+  //GET ELEMENTS - CALLEE    -- AFTER OFFER HAS BEEN SENT (FROM SET OFFER?)
   const createAnswerButton = document.querySelector('button#createAnswer');
   const setAnswerButton = document.querySelector('button#setAnswer');
   const hangupButton = document.querySelector('button#hangup');
   let dataChannelDataReceived;
-  console.log(getMediaButton, 'getMediaButton')
+
+  //ADD BUTTON EVENTS - CALLER
   getMediaButton.onclick = getMedia;
   createPeerConnectionButton.onclick = createPeerConnection;
   createOfferButton.onclick = createOffer;
   setOfferButton.onclick = setOffer;
+  //ADD BUTTON EVENTS- CALLEE
   createAnswerButton.onclick = createAnswer;
   setAnswerButton.onclick = setAnswer;
   hangupButton.onclick = hangup;
 
+  //SHOW OFFER AND ACCEPTANCE KEY
   const offerSdpTextarea = document.querySelector('div#local textarea');
   const answerSdpTextarea = document.querySelector('div#remote textarea');
 
+  //ADD SELECT OPTION CHANGE EVENT - TO SELECT CAMERA OR AUDIO INPUT
   const audioSelect = document.querySelector('select#audioSrc');
   const videoSelect = document.querySelector('select#videoSrc');
-  //console.log(audioSelect, 'audioSelect')
   audioSelect.onchange = videoSelect.onchange = getMedia;
 
+  //VIDEO ELEMENTS
   const localVideo = document.querySelector('div#local video');
   const remoteVideo = document.querySelector('div#remote video');
 
@@ -58,30 +66,30 @@ async function init () {
         const selectSourceDiv = document.querySelector('div#selectSource');
         let audioSelect = document.querySelector('select#audioSrc');
         let videoSelect = document.querySelector('select#videoSrc');
-    selectSourceDiv.classList.remove('hidden');
-    let audioCount = 0;
-    let videoCount = 0;
-    for (let i = 0; i < sourceInfos.length; i++) {
-      const option = document.createElement('option');
-      option.value = sourceInfos[i].deviceId;
-      option.text = sourceInfos[i].label;
-      if (sourceInfos[i].kind === 'audioinput') {
-        audioCount++;
-        if (option.text === '') {
-          option.text = `Audio ${audioCount}`;
+        selectSourceDiv.classList.remove('hidden');
+        let audioCount = 0;
+        let videoCount = 0;
+        for (let i = 0; i < sourceInfos.length; i++) {
+          const option = document.createElement('option');
+          option.value = sourceInfos[i].deviceId;
+          option.text = sourceInfos[i].label;
+          if (sourceInfos[i].kind === 'audioinput') {
+            audioCount++;
+            if (option.text === '') {
+              option.text = `Audio ${audioCount}`;
+            }
+            audioSelect.appendChild(option);
+          } else if (sourceInfos[i].kind === 'videoinput') {
+            videoCount++;
+            if (option.text === '') {
+              option.text = `Video ${videoCount}`;
+            }
+            videoSelect.appendChild(option);
+          } else {
+            console.log('unknown', JSON.stringify(sourceInfos[i]));
+          }
         }
-        audioSelect.appendChild(option);
-      } else if (sourceInfos[i].kind === 'videoinput') {
-        videoCount++;
-        if (option.text === '') {
-          option.text = `Video ${videoCount}`;
-        }
-        videoSelect.appendChild(option);
-      } else {
-        console.log('unknown', JSON.stringify(sourceInfos[i]));
-      }
     }
-  }
 
     async function getMedia() {
     getMediaButton.disabled = true;
@@ -121,7 +129,10 @@ async function init () {
     localStream = stream;
     createPeerConnectionButton.disabled = false;
   }
+    //MOST LIKELY TO BE CALLER --**
     function createPeerConnection() {
+
+    //CALLER CREATE PEER CONNECTION
     createPeerConnectionButton.disabled = true;
     createOfferButton.disabled = false;
     console.log('Starting call');
@@ -145,16 +156,20 @@ async function init () {
     sendChannel.onclose = onSendChannelStateChange;
     sendChannel.onerror = onSendChannelStateChange;
 
+    //CALLEE PEER CONNECTION *** TODO
     window.remotePeerConnection = remotePeerConnection = new RTCPeerConnection(servers);
     console.log('Created remote peer connection object remotePeerConnection');
     remotePeerConnection.onicecandidate = e => onIceCandidate(remotePeerConnection, e);
     remotePeerConnection.ontrack = gotRemoteStream;
     remotePeerConnection.ondatachannel = receiveChannelCallback;
 
+    //ADD LOCAL VIDEO STREAM
     localStream.getTracks()
         .forEach(track => localPeerConnection.addTrack(track, localStream));
     console.log('Adding Local Stream to peer connection');
   }
+
+
     function onSetSessionDescriptionSuccess() {
     console.log('Set session description success.');
   }
@@ -162,10 +177,15 @@ async function init () {
   function onSetSessionDescriptionError(error) {
     console.log(`Failed to set session description: ${error.toString()}`);
   }
+
+    //CALLER CREATE OFFER OF CONNECTION
     async function createOffer() {
+      console.log('create offer - offerOptions',offerOptions)
     try {
       const offer = await localPeerConnection.createOffer(offerOptions);
+      //CALLER CREATE OFFER OF CONNECTION
       gotDescription1(offer);
+      //SET LOCAL OFFER DESCRIPTION
     } catch (e) {
       onCreateSessionDescriptionError(e);
     }
@@ -174,10 +194,16 @@ async function init () {
   function onCreateSessionDescriptionError(error) {
     console.log(`Failed to create session description: ${error.toString()}`);
   }
+
+    //AFTER CREATION - SET THE OFFER KEY FOR LOCAL AND EXPECTED REMOTE STREAM 
+
+    //create offer and description for local and peer connection expected
     async function setOffer() {
     // Restore the SDP from the textarea. Ensure we use CRLF which is what is generated
     // even though https://tools.ietf.org/html/rfc4566#section-5 requires
     // parsers to handle both LF and CRLF.
+
+    // TODO - VALUE TO BE PASSED FROM CALLER TO CALLEE ***
     const sdp = offerSdpTextarea.value
         .split('\n')
         .map(l => l.trim())
@@ -191,15 +217,19 @@ async function init () {
     try {
       // eslint-disable-next-line no-unused-vars
       const ignore = await localPeerConnection.setLocalDescription(offer);
+      console.log('SET LOCAL DESCRIPTION');
       onSetSessionDescriptionSuccess();
+      // TODO - VALUE TO BE PASSED FROM CALLER TO CALLEE ***
       setOfferButton.disabled = true;
     } catch (e) {
       onSetSessionDescriptionError(e);
       return;
     }
 
+    // TODO - RECIEVE OFFER FROM CALLER *** / expect to recieve this offer back from remote?
     try {
       // eslint-disable-next-line no-unused-vars
+      console.log('SET REMOTE DESCRIPTION');
       const ignore = await remotePeerConnection.setRemoteDescription(offer);
       onSetSessionDescriptionSuccess();
       createAnswerButton.disabled = false;
@@ -208,14 +238,15 @@ async function init () {
       return;
     }
   }
-
+  //GONE TO CALLER - SET OFFER IN TEXTAREA
     function gotDescription1(description) {
+    console.log('got description offer', description)
     offerSdpTextarea.disabled = false;
     offerSdpTextarea.value = description.sdp;
     createOfferButton.disabled = true;
     setOfferButton.disabled = false;
   }
-
+  //GONE TO CALLEE
   async function createAnswer() {
     // Since the 'remote' side has no media stream we need
     // to pass in the right constraints in order for it to
@@ -233,6 +264,9 @@ async function init () {
     // Restore the SDP from the textarea. Ensure we use CRLF which is what is generated
     // even though https://tools.ietf.org/html/rfc4566#section-5 requires
     // parsers to handle both LF and CRLF.
+
+    //Recieve this answer from database: **
+
     const sdp = answerSdpTextarea.value
         .split('\n')
         .map(l => l.trim())
