@@ -1,8 +1,8 @@
-
+import { useRef } from 'react';
 const useMeeting = () => {
-    document.addEventListener('DOMContentLoaded', init);
+    // document.addEventListener('DOMContentLoaded', init);
 
-async function init() {
+async function init () {
       console.log('DOMContentLoaded');
   try {
     const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
@@ -33,13 +33,13 @@ async function init() {
 
   const audioSelect = document.querySelector('select#audioSrc');
   const videoSelect = document.querySelector('select#videoSrc');
-  console.log(audioSelect, 'audioSelect')
+  //console.log(audioSelect, 'audioSelect')
   audioSelect.onchange = videoSelect.onchange = getMedia;
 
   const localVideo = document.querySelector('div#local video');
   const remoteVideo = document.querySelector('div#remote video');
 
-  const selectSourceDiv = document.querySelector('div#selectSource');
+  
 
   let localPeerConnection;
   let remotePeerConnection;
@@ -55,6 +55,9 @@ async function init() {
   };
 
     function gotSources(sourceInfos) {
+        const selectSourceDiv = document.querySelector('div#selectSource');
+        let audioSelect = document.querySelector('select#audioSrc');
+        let videoSelect = document.querySelector('select#videoSrc');
     selectSourceDiv.classList.remove('hidden');
     let audioCount = 0;
     let videoCount = 0;
@@ -360,10 +363,10 @@ async function init() {
     const readyState = receiveChannel.readyState;
     console.log(`Receive channel state is: ${readyState}`);
   }
+
 }
 
-
-    return {}
+    return {init}
 }
 
 export default useMeeting

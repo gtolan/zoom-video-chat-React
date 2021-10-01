@@ -12,6 +12,7 @@ nav {
   width: 100vw;
   justify-content: space-between;
   height: 63px;
+  background-color: white;
   box-shadow: 0 0 2px #00000033;
   .left-nav {
     @extend .flex-row;
