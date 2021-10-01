@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 const useMeeting = () => {
-    // document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', init);
 
 async function init () {
       console.log('DOMContentLoaded');
@@ -266,7 +266,7 @@ async function init () {
     // parsers to handle both LF and CRLF.
 
     //Recieve this answer from database: **
-
+//******************************************
     const sdp = answerSdpTextarea.value
         .split('\n')
         .map(l => l.trim())

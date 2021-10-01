@@ -1,5 +1,21 @@
 
 //INSIDE INIT ASYNC
+const useCommon = async () =>{
+  console.log('use common')
+    let localStream;
+    let dataChannelCounter = 0;
+    let sendDataLoop;
+    let receiveChannel;
+    let dataChannelDataReceived;
+      //VIDEO ELEMENTS
+    const localVideo = document.querySelector('div#local video');
+    const remoteVideo = document.querySelector('div#remote video');
+    //ADD SELECT OPTION CHANGE EVENT - TO SELECT CAMERA OR AUDIO INPUT
+    const audioSelect = document.querySelector('select#audioSrc');
+    const videoSelect = document.querySelector('select#videoSrc');
+    audioSelect.onchange = videoSelect.onchange = getMedia;
+     //SHOW OFFER AND ACCEPTANCE KEY
+    const offerSdpTextarea = document.querySelector('div#local textarea');
 
     //WRITE SOURCE OPTIONS TO SELECT - VIDEO AND AUDIO
     function gotSources(sourceInfos) {
@@ -33,7 +49,7 @@
 
     //GET LOCAL DEVICE MEDIA OPTIONS - VIDEO AND AUDIO
     async function getMedia() {
-        getMediaButton.disabled = true;
+        // getMediaButton.disabled = true;
 
         if (localStream) {
         localVideo.srcObject = null;
@@ -72,6 +88,9 @@
         localStream = stream;
         createPeerConnectionButton.disabled = false;
     }
+    function onCreateSessionDescriptionError(error) {
+      console.log(`Failed to create session description: ${error.toString()}`);
+    }
 
     function onSetSessionDescriptionSuccess() {
         console.log('Set session description success.');
@@ -104,7 +123,7 @@
     remotePeerConnection = null;
     offerSdpTextarea.disabled = true;
     answerSdpTextarea.disabled = true;
-    getMediaButton.disabled = false;
+    // getMediaButton.disabled = false;
     createPeerConnectionButton.disabled = true;
     createOfferButton.disabled = true;
     setOfferButton.disabled = true;
@@ -176,3 +195,14 @@
     const readyState = receiveChannel.readyState;
     console.log(`Receive channel state is: ${readyState}`);
   }
+  return { gotSources, 
+          hangup, 
+          getMedia, 
+          onCreateSessionDescriptionError, 
+          onSetSessionDescriptionSuccess, 
+          onSetSessionDescriptionError, 
+          createOfferButton,
+          gotRemoteStream };
+}
+
+export default useCommon;

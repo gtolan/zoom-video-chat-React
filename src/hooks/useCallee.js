@@ -1,13 +1,54 @@
-
-const useCallee = () => {
-    
-    
-    return {}
-}
-
-export default useCallee;
+import useCommon from './useCommon.js';
 
 
+
+
+const useCallee = async () => {
+    const { gotSources, 
+          hangup, 
+          getMedia, 
+          onCreateSessionDescriptionError, 
+          onSetSessionDescriptionSuccess, 
+          onSetSessionDescriptionError, 
+          createOfferButton,
+          gotRemoteStream } = useCommon();
+
+    console.log('use callee')
+    try {
+        const enumerateDevices = await navigator.mediaDevices.enumerateDevices();
+        gotSources(enumerateDevices);
+    } catch (e) {
+        console.log(e);
+    }
+
+
+  //GET ELEMENTS - CALLEE    -- AFTER OFFER HAS BEEN SENT (FROM SET OFFER?)
+  const createAnswerButton = document.querySelector('button#createAnswer');
+  const setAnswerButton = document.querySelector('button#setAnswer');
+  const hangupButton = document.querySelector('button#hangup');
+
+  //ADD BUTTON EVENTS- CALLEE
+  createAnswerButton.onclick = createAnswer;
+  setAnswerButton.onclick = setAnswer;
+  hangupButton.onclick = hangup;
+
+ 
+  const answerSdpTextarea = document.querySelector('div#remote textarea');
+
+  //ADD SELECT OPTION CHANGE EVENT - TO SELECT CAMERA OR AUDIO INPUT
+  const audioSelect = document.querySelector('select#audioSrc');
+  const videoSelect = document.querySelector('select#videoSrc');
+  audioSelect.onchange = videoSelect.onchange = getMedia;
+
+
+
+  let localPeerConnection;
+  let remotePeerConnection;
+
+  const offerOptions = {
+    offerToReceiveAudio: 1,
+    offerToReceiveVideo: 1
+  };
   async function createAnswer() {
     // Since the 'remote' side has no media stream we need
     // to pass in the right constraints in order for it to
@@ -64,5 +105,9 @@ export default useCallee;
     createAnswerButton.disabled = true;
     setAnswerButton.disabled = false;
   }
+    
+}
+
+export default useCallee;
 
 
