@@ -8,13 +8,10 @@ const HomePage = () => {
     const [meetingRoomID, setMeetingRoomID] = useState(true);
     const history = useHistory();
     const submitHandler = (e) => {
-        con
-        e.PreventDefault()
+        console.log(e,'change paegg')
+        e.preventDefault()
         //TODO: validate ID before or after submit?
-        history.push({
-           pathname: '/meeting-room"',
-           state: {meetingRoomID }
-       })
+        history.push(`/meeting-room/${meetingRoomID}`)
     }
 
     const inputChanged = (e) => {

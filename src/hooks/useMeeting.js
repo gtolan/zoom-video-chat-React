@@ -19,7 +19,7 @@ async function init() {
   const setAnswerButton = document.querySelector('button#setAnswer');
   const hangupButton = document.querySelector('button#hangup');
   let dataChannelDataReceived;
-
+  console.log(getMediaButton, 'getMediaButton')
   getMediaButton.onclick = getMedia;
   createPeerConnectionButton.onclick = createPeerConnection;
   createOfferButton.onclick = createOffer;
@@ -33,7 +33,7 @@ async function init() {
 
   const audioSelect = document.querySelector('select#audioSrc');
   const videoSelect = document.querySelector('select#videoSrc');
-
+  console.log(audioSelect, 'audioSelect')
   audioSelect.onchange = videoSelect.onchange = getMedia;
 
   const localVideo = document.querySelector('div#local video');

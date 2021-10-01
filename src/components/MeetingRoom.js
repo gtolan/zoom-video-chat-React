@@ -6,16 +6,25 @@ import { useParams } from 'react-router-dom';
 
 
 const MeetingRoom = () => {
-    const { ID } = useParams()
-    const meet = useMeeting()
-
-    console.log(ID, 'ID');
-    meet()
-
+    const { roomID } = useParams();
+    console.log('roomID',roomID)
+   
+     useMeeting()
 
     return (
         <main>
             <section className="connections">
+                    <div id="selectSource" class="hidden">
+                        <div id="select">Select an audio &amp; video source, then click <strong>Get media</strong>:</div>
+                        <div class="source">
+                            <label for="audioSrc">Audio source:</label>
+                            <select id="audioSrc"></select>
+                        </div>
+                        <div class="source">
+                            <label for="videoSrc">Video source:</label>
+                            <select id="videoSrc"></select>
+                        </div>
+                    </div>
                     <div id="buttons">
                         <button id="getMedia">Get media</button>
                         <button id="createPeerConnection" disabled>Create peer connection</button>
@@ -28,7 +37,7 @@ const MeetingRoom = () => {
                     <div id="preview">
                         <div id="local">
                                 <h2>Local</h2>
-                                <video playsinline autoplay muted></video>
+                                <video playsInline autoPlay muted></video>
                                 <h2>Offer SDP</h2>
                                 <textarea></textarea>
                                 <br>
@@ -37,7 +46,7 @@ const MeetingRoom = () => {
                     </div>
                     <div id="remote">
                         <h2>Remote</h2>
-                        <video playsinline autoplay></video>
+                        <video playsInline autoPlay></video>
                         <h2>Answer SDP</h2>
                         <textarea></textarea>
                     </div>

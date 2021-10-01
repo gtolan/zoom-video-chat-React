@@ -4,7 +4,6 @@ import HomePage from './components/HomePage.js';
 import FAQs from './components/FAQs.js';
 import Footer from './components/Footer';
 import {
-  BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
@@ -13,7 +12,7 @@ import MeetingRoom from './components/MeetingRoom.js';
 
 function App() {
   return (
-    <Router>
+    
       <div className="App">
       
           <header className="App-header">
@@ -24,9 +23,9 @@ function App() {
               <Route path="/about">
                 <h1>ZZOOM aBOUT</h1>
               </Route>
-              <Router path="/meeting-room">
+              <Route path="/meeting-room/:roomID">
                 <MeetingRoom/>
-              </Router>
+              </Route>
               <Route path="/faq">
                 <FAQs/>
               </Route>
@@ -41,7 +40,6 @@ function App() {
           <Footer/>
             
       </div>
-    </Router>
   );
 }
 

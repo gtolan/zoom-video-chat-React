@@ -1,0 +1,14 @@
+#preview {
+  display: flex;
+  flex-direction: row;
+  #local {
+    display: flex;
+    flex-direction: row;
+    width: 43%;
+  }
+  #remote {
+    display: flex;
+    flex-direction: row;
+    width: 43%;
+  }
+}
