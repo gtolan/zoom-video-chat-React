@@ -36,7 +36,6 @@ const useWebRTC = () => {
         //Create DB ref
         const roomRefDB = doc(collection(db, "Rooms"));
 
-        console.log('Create PeerConnection with configuration: ', configuration, 'roomRefDB', roomRefDB);
         //Start Peer connection
         peerConnection = new RTCPeerConnection(configuration);
 
@@ -56,10 +55,9 @@ const useWebRTC = () => {
             console.log('Got final candidate!');
             return;
             }
-            console.log('Got candidate: ', event.candidate);
+            // console.log('Got candidate: ', event.candidate);
             //write ICE candidates for Caller to Room
             docRef = await addDoc(collection(roomRefDB, 'callerCandidatesCollection'), event.candidate.toJSON());
-            console.log("Document written with ID: ", docRef.id, docRef);
 
         });
 
@@ -84,18 +82,9 @@ const useWebRTC = () => {
             '#currentRoom').innerText = `Current room is ${roomRefDB.id} - You are the caller!`;
         // Code for showing Room ID above
 
-        // //add listener for peer connection Tracks to Remote Stream
-        // peerConnection.addEventListener('track', event => {
-        //     console.log('Got remote track:', event.streams[0]);
-        //     event.streams[0].getTracks().forEach(track => {
-        //         console.log('Add a track to the remoteStream:', track);
-        //         remoteStream.addTrack(track);
-        //     });
-        // });
-
         // Listening for remote session description below       
         const unsub = onSnapshot(doc(db,'Rooms',roomId), async(doc) => {
-                console.log(doc, 'doc')
+               
                 const data = doc.data()
                 if (!peerConnection.currentRemoteDescription && data.answer) {
                 console.log('Got remote answer: ', data.answer);
@@ -107,10 +96,12 @@ const useWebRTC = () => {
         });
 
         // Listen for remote ICE candidates
-        const unsubAnswer = onSnapshot(collection(db,'Rooms',`${roomId}`,'calleeCandidates'), (snapshot) => {
+        const unsubAnswer = onSnapshot(collection(db,'Rooms',`${roomId}`,'calleeCandidatesCollection'), (snapshot) => {
+            console.log(`Got new remote ICE callee`, snapshot, 'snapshotUNSUB')
             snapshot.docChanges().forEach(async change => {
             if (change.type === 'added') {
                 let data = change.doc.data();
+                console.log(JSON.stringify(data), 'DATATATA')
                 console.log(`Got new remote ICE callee candidate: ${JSON.stringify(data)}`);
                 await peerConnection.addIceCandidate(new RTCIceCandidate(data));
             }
@@ -215,6 +206,7 @@ const useWebRTC = () => {
             snapshot.docChanges().forEach(async change => {
             if (change.type === 'added') {
                 let data = change.doc.data();
+                console.log(data, 'DATATATA')
                 console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
                 await peerConnection.addIceCandidate(new RTCIceCandidate(data));
             }

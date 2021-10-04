@@ -21,7 +21,7 @@ const ChatRoom = () => {
 
     return (
         <div>
-            <h1>Welcome to FirebaseRTC!</h1>
+        
 <div id="buttons">
     <button className="mdc-button mdc-button--raised" id="cameraBtn">
        
