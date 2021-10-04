@@ -45,6 +45,7 @@ const useWebRTC = () => {
 
         //Get local stream and add it to peer connection
         localStream.getTracks().forEach(track => {
+             console.log('localStream ADD')
             peerConnection.addTrack(track, localStream);
         });
   
@@ -62,19 +63,10 @@ const useWebRTC = () => {
 
         });
 
-                //add listener for peer connection Tracks to Remote Stream
-        peerConnection.addEventListener('track', event => {
-            console.log('Got remote track:', event.streams[0]);
-            event.streams[0].getTracks().forEach(track => {
-                console.log('Add a track to the remoteStream:', track);
-                remoteStream.addTrack(track);
-            });
-        });
-
-        // Code for creating a room below
         //Create Offer
         const offer = await peerConnection.createOffer();
         await peerConnection.setLocalDescription(offer);
+        console.log('LOCAL DESC SET');
         console.log('Created offer:', offer);
 
         const roomWithOffer = {
@@ -102,13 +94,15 @@ const useWebRTC = () => {
         // });
 
         // Listening for remote session description below       
-        const unsub = onSnapshot(doc(db,'Rooms',roomId), (doc) => {
-            console.log("Current data: ", doc.data());
-                if (!peerConnection.currentRemoteDescription && doc && doc.answer) {
-                console.log('Got remote description: ', doc.answer);
-                const rtcSessionDescription = new RTCSessionDescription(doc.answer);
-                peerConnection.setRemoteDescription(rtcSessionDescription);
-                //await peerConnection.setRemoteDescription(rtcSessionDescription);
+        const unsub = onSnapshot(doc(db,'Rooms',roomId), async(doc) => {
+                console.log(doc, 'doc')
+                const data = doc.data()
+                if (!peerConnection.currentRemoteDescription && data.answer) {
+                console.log('Got remote answer: ', data.answer);
+                const rtcSessionDescription = new RTCSessionDescription(data.answer);
+                //peerConnection.setRemoteDescription(rtcSessionDescription);
+                await peerConnection.setRemoteDescription(rtcSessionDescription);
+                console.log('REMOTE DESC SET');
             }
         });
 
@@ -117,9 +111,18 @@ const useWebRTC = () => {
             snapshot.docChanges().forEach(async change => {
             if (change.type === 'added') {
                 let data = change.doc.data();
-                console.log(`Got new remote ICE candidate: ${JSON.stringify(data)}`);
+                console.log(`Got new remote ICE callee candidate: ${JSON.stringify(data)}`);
                 await peerConnection.addIceCandidate(new RTCIceCandidate(data));
             }
+            });
+        });
+
+                // //add listener for peer connection Tracks to Remote Stream
+        peerConnection.addEventListener('track', event => {
+            console.log('Got remote track:', event.streams[0]);
+            event.streams[0].getTracks().forEach(track => {
+                console.log('Add a track to the remoteStream:', track);
+                remoteStream.addTrack(track);
             });
         });
         console.log('Listen for remote ICE candidates')
@@ -159,6 +162,7 @@ const useWebRTC = () => {
         registerPeerConnectionListeners();
 
         localStream.getTracks().forEach(track => {
+            console.log('localStream ADD')
             peerConnection.addTrack(track, localStream);
         });
 
@@ -190,9 +194,11 @@ const useWebRTC = () => {
         const offer = roomSnapshot.data().offer;
         console.log('Got offer:', offer);
         await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
+        console.log('REMOTE DESC SET');
         const answer = await peerConnection.createAnswer();
         console.log('Created answer:', answer);
         await peerConnection.setLocalDescription(answer);
+        console.log('LOCAL DESC SET');
 
         const roomWithAnswer = {
         answer: {
