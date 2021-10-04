@@ -62,6 +62,15 @@ const useWebRTC = () => {
 
         });
 
+                //add listener for peer connection Tracks to Remote Stream
+        peerConnection.addEventListener('track', event => {
+            console.log('Got remote track:', event.streams[0]);
+            event.streams[0].getTracks().forEach(track => {
+                console.log('Add a track to the remoteStream:', track);
+                remoteStream.addTrack(track);
+            });
+        });
+
         // Code for creating a room below
         //Create Offer
         const offer = await peerConnection.createOffer();
@@ -83,19 +92,16 @@ const useWebRTC = () => {
             '#currentRoom').innerText = `Current room is ${roomRefDB.id} - You are the caller!`;
         // Code for showing Room ID above
 
-        peerConnection.addEventListener('track', event => {
-            console.log('Got remote track:', event.streams[0]);
-            event.streams[0].getTracks().forEach(track => {
-            console.log('Add a track to the remoteStream:', track);
-            remoteStream.addTrack(track);
-            });
-        });
+        // //add listener for peer connection Tracks to Remote Stream
+        // peerConnection.addEventListener('track', event => {
+        //     console.log('Got remote track:', event.streams[0]);
+        //     event.streams[0].getTracks().forEach(track => {
+        //         console.log('Add a track to the remoteStream:', track);
+        //         remoteStream.addTrack(track);
+        //     });
+        // });
 
-        // Listening for remote session description below
-
-        console.log(docRef, 'docRef', roomId, roomRefDB, 'roomRefDB');
-
-
+        // Listening for remote session description below       
         const unsub = onSnapshot(doc(db,'Rooms',roomId), (doc) => {
             console.log("Current data: ", doc.data());
                 if (!peerConnection.currentRemoteDescription && doc && doc.answer) {
@@ -106,7 +112,7 @@ const useWebRTC = () => {
             }
         });
 
-
+        // Listen for remote ICE candidates
         const unsubAnswer = onSnapshot(collection(db,'Rooms',`${roomId}`,'calleeCandidates'), (snapshot) => {
             snapshot.docChanges().forEach(async change => {
             if (change.type === 'added') {
@@ -116,11 +122,11 @@ const useWebRTC = () => {
             }
             });
         });
+        console.log('Listen for remote ICE candidates')
 
 
 
-        // Listen for remote ICE candidates above
-            console.log('Listen for remote ICE candidates')
+       
     }
 
     function joinRoom() {
@@ -144,34 +150,40 @@ const useWebRTC = () => {
         const roomRefDB = doc(db, "Rooms", roomId);
         const roomSnapshot = await getDoc(roomRefDB);
         
-
+///The Callee answers the room Snapshot
     if (roomSnapshot.exists) {
+        console.log("I AM THE CALLEE")
         console.log('Create PeerConnection with configuration: ', configuration);
         peerConnection = new RTCPeerConnection(configuration);
+        console.log("Register local callee listeners for tracks")
         registerPeerConnectionListeners();
+
         localStream.getTracks().forEach(track => {
-        peerConnection.addTrack(track, localStream);
+            peerConnection.addTrack(track, localStream);
         });
 
-        const calleeCandidatesCollection = await doc(collection(roomRefDB,"calleeCandidates"));
+        //Write an Callee Candidates ICE list
+        await doc(collection(roomRefDB,"calleeCandidates"));
 
         // Code for collecting ICE candidates below
         peerConnection.addEventListener('icecandidate', async(event) => {
-        if (!event.candidate) {
-            console.log('Got final candidate!');
-            return;
-        }
-        console.log('Got candidate: ', event.candidate);
-        await addDoc(collection(roomRefDB, 'calleeCandidatesCollection'), event.candidate.toJSON());
+                if (!event.candidate) {
+                    console.log('Got final candidate!');
+                    return;
+                }
+                //Wite Candidates to Firestore
+                console.log('Got candidate: ', event.candidate);
+                await addDoc(collection(roomRefDB, 'calleeCandidatesCollection'), event.candidate.toJSON());
         // Code for collecting ICE candidates above
         })
 
+        //
         peerConnection.addEventListener('track', event => {
-        console.log('Got remote track:', event.streams[0]);
-        event.streams[0].getTracks().forEach(track => {
-            console.log('Add a track to the remoteStream:', track);
-            remoteStream.addTrack(track);
-        });
+            console.log('Got remote track:', event.streams[0]);
+            event.streams[0].getTracks().forEach(track => {
+                console.log('Add a track to the remoteStream:', track, event.track);
+                remoteStream.addTrack(track);
+            });
         });
 
         // Code for creating SDP answer below
@@ -208,6 +220,7 @@ const useWebRTC = () => {
 
         // Listening for remote ICE candidates above
     }
+
     }
     async function openUserMedia(e) {
     console.log('openUserMedia')
@@ -215,9 +228,7 @@ const useWebRTC = () => {
         {video: true, audio: true});
     document.querySelector('#localVideo').srcObject = stream;
     localStream = stream;
-    // setLocalStream(stream)
     remoteStream = new MediaStream();
-    // setRemoteStream(new MediaStream())
     document.querySelector('#remoteVideo').srcObject = remoteStream;
 
     console.log('Stream:', document.querySelector('#localVideo').srcObject);
