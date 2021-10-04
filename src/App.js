@@ -8,8 +8,9 @@ import {
   Route
 } from "react-router-dom";
 import MeetingRoom from './components/MeetingRoom.js';
-import Caller from './components/Caller';
-import Callee from './components/Callee';
+// import Caller from './components/Caller';
+// import Callee from './components/Callee';
+import ChatRoom from './components/ChatRoom';
 
 function App() {
   return (
@@ -25,13 +26,13 @@ function App() {
                 <h1>ZZOOM aBOUT</h1>
               </Route>
               <Route path="/callee">
-                <Callee/>
+                {/* <Callee/> */}
               </Route>
               <Route path="/caller">
-                <Caller/>
+                {/* <Caller/> */}
               </Route>
               <Route path="/meeting-room/:roomID">
-                <MeetingRoom/>
+                <ChatRoom/>
               </Route>
               <Route path="/faq">
                 <FAQs/>

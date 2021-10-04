@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import '../styles/HomePage.scss';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import db from '../firebaseInit';
 
 const HomePage = () => {
 
@@ -13,6 +15,15 @@ const HomePage = () => {
         //TODO: validate ID before or after submit?
         history.push(`/meeting-room/${meetingRoomID}`)
     }
+
+    async function getRoom(db) {
+  const roomCol = collection(db, 'Rooms');
+  const roomSnapshot = await getDocs(roomCol);
+  const roomList = roomSnapshot.docs.map(doc => doc.data());
+  console.log('roomList', roomList)
+  return roomList;
+}
+getRoom(db)
 
     const inputChanged = (e) => {
             //enable join btn
