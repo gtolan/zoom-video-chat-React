@@ -42,6 +42,9 @@ const MeetingRoom = () => {
                         <button id="createPeerConnection" disabled>Create peer connection</button>
                         <button id="createOffer" disabled>Create offer</button>
                         <button id="setOffer" disabled>Set offer</button>
+                        <button id="confirmJoinBtn" type="button">
+                            <span class="mdc-button__label">Join</span>
+                        </button>
                         {/* </>
                         } */}
                         {/* {!isCaller && <> */}

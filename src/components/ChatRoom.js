@@ -1,14 +1,16 @@
-import useCommon from '../hooks/useCommon';
+import useWebRTC from '../hooks/useWebRTC';
 import { useEffect } from 'react';
+import '../styles/MeetingRoom.scss';
 
 const ChatRoom = () => {
-    const {createRoom, joinRoom, openUserMedia, hangUp} = useCommon()
+    const {createRoom, joinRoom, openUserMedia, hangUp} = useWebRTC()
     // function init() {
         useEffect(() => {
               document.querySelector('#cameraBtn').addEventListener('click', openUserMedia);
   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
   document.querySelector('#createBtn').addEventListener('click', createRoom);
   document.querySelector('#joinBtn').addEventListener('click', joinRoom);
+  
         }, [])
 //   document.querySelector('#cameraBtn').addEventListener('click', openUserMedia);
 //   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
@@ -36,6 +38,9 @@ const ChatRoom = () => {
     <button className="mdc-button mdc-button--raised" disabled id="hangupBtn">
         <i className="material-icons mdc-button__icon" aria-hidden="true">close</i>
         <span className="mdc-button__label">Hangup</span>
+    </button>
+    <button id="confirmJoinBtn" type="button" >
+                    <span class="mdc-button__label">Join</span>
     </button>
 </div>
 <div>

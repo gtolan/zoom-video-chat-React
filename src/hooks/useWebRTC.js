@@ -6,7 +6,7 @@ import { doc, getDocs,getDoc, addDoc, collection, setDoc, onSnapshot } from "fir
 
 import db from '../firebaseInit';
 
-const useCommon = () => {
+const useWebRTC = () => {
 
   const configuration = {
   iceServers: [
@@ -214,6 +214,7 @@ function joinRoom() {
       addEventListener('click', async () => {
         roomId = document.querySelector('#room-id').value;
         console.log('Join room: ', roomId);
+        console.log('ADD Join room EVT=eNt: ', roomId);
         document.querySelector(
             '#currentRoom').innerText = `Current room is ${roomId} - You are the callee!`;
         await joinRoomById(roomId);
@@ -223,11 +224,28 @@ function joinRoom() {
 }
 
 async function joinRoomById(roomId) {
-  console.log('join room by id', roomId)
+ 
   // const db = firestore();
-  const roomRefDB = db.collection('rooms').doc(`${roomId}`);
-  const roomSnapshot = await roomRefDB.getDocs();
-  console.log('Got room:', roomSnapshot.exists);
+//   const roomRefDB = db.collection('rooms').doc(`${roomId}`);
+  //const roomRefDB = doc(collection(db, "Rooms", roomId));
+  //const roomSnapshot = await roomRefDB.getDocs();
+  //console.log('Got room:', roomSnapshot.exists);
+
+//   const roomSnapshot = onSnapshot(doc(db,'Rooms',roomId), (doc) => {
+//     console.log("Current data: ", doc.data());
+//         if (!peerConnection.currentRemoteDescription && doc && doc.answer) {
+//           console.log('Got remote description: ', doc.answer);
+//           const rtcSessionDescription = new RTCSessionDescription(doc.answer);
+//           peerConnection.setRemoteDescription(rtcSessionDescription);
+//            //await peerConnection.setRemoteDescription(rtcSessionDescription);
+//     }
+// });
+
+    const roomRefDB = doc(db, "Rooms", roomId);
+
+    console.log(roomRefDB)
+    const roomSnapshot = await getDoc(roomRefDB);
+      console.log('Got room:', roomSnapshot.exists);
 
   if (roomSnapshot.exists) {
     console.log('Create PeerConnection with configuration: ', configuration);
@@ -237,8 +255,10 @@ async function joinRoomById(roomId) {
       peerConnection.addTrack(track, localStream);
     });
 
+      const calleeCandidatesCollection = await doc(collection(roomRefDB,"calleeCandidates"));
+
     // Code for collecting ICE candidates below
-    const calleeCandidatesCollection = roomRefDB.collection('calleeCandidates');
+    //const calleeCandidatesCollection = roomRefDB.collection('calleeCandidates');
     peerConnection.addEventListener('icecandidate', event => {
       if (!event.candidate) {
         console.log('Got final candidate!');
@@ -371,4 +391,4 @@ return {createRoom, joinRoom, openUserMedia, hangUp};
 
 }//END
 
-export default useCommon;
+export default useWebRTC;
