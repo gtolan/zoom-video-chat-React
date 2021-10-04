@@ -24,8 +24,7 @@ const ChatRoom = () => {
         
 <div id="buttons">
     <button className="mdc-button mdc-button--raised" id="cameraBtn">
-       
-        <span className="mdc-button__label">Open camera microphone</span>
+        <span className="mdc-button__label">Camera</span>
     </button>
     <button className="mdc-button mdc-button--raised" disabled id="createBtn">
    

@@ -1,6 +1,41 @@
 #videos {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: flex;
   video {
     width: 50%;
     background-color: gainsboro;
+    &#localVideo {
+      width: 200px;
+      height: 150px;
+      position: absolute;
+      left: 0;
+      background-color: red;
+      transition: 1s;
+      transform: translateX(calc(50vw - 100px));
+      &.active {
+        transform: translate(0px, 50%);
+      }
+    }
+    &#remoteVideo {
+      width: 90vw;
+      background-color: gainsboro;
+    }
+  }
+}
+
+#buttons {
+  button {
+    height: 30px;
+    background-color: dodgerblue;
+    border: 1px solid blue;
+    border-radius: 3px;
+    color: white;
+    margin: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 1px;
   }
 }

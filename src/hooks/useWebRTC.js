@@ -101,6 +101,7 @@ const useWebRTC = () => {
             snapshot.docChanges().forEach(async change => {
             if (change.type === 'added') {
                 let data = change.doc.data();
+                document.querySelector('#localVideo').classList.add('active')
                 console.log(JSON.stringify(data), 'DATATATA')
                 console.log(`Got new remote ICE callee candidate: ${JSON.stringify(data)}`);
                 await peerConnection.addIceCandidate(new RTCIceCandidate(data));

@@ -16,14 +16,14 @@ const HomePage = () => {
         history.push(`/meeting-room/${meetingRoomID}`)
     }
 
-    async function getRoom(db) {
-  const roomCol = collection(db, 'Rooms');
-  const roomSnapshot = await getDocs(roomCol);
-  const roomList = roomSnapshot.docs.map(doc => doc.data());
-  console.log('roomList', roomList)
-  return roomList;
-}
-getRoom(db)
+    // async function getRoom(db) {
+    //     const roomCol = collection(db, 'Rooms');
+    //     const roomSnapshot = await getDocs(roomCol);
+    //     const roomList = roomSnapshot.docs.map(doc => doc.data());
+    //     console.log('roomList', roomList)
+    //     return roomList;
+    //     }
+    // getRoom(db)
 
     const inputChanged = (e) => {
             //enable join btn
