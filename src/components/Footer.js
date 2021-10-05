@@ -5,7 +5,7 @@ import '../styles/Footer.scss';
 const Footer = () => {
     const year = new Date().getFullYear()
     return (
-        <footer>
+        <footer className="home">
             <p className="copyright">
                 ©{year} ZZOOM Video inc. All rights reserved. No privacy and terms :)</p>
             <div className="footer-tabs">

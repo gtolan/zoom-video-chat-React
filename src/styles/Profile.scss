@@ -17,7 +17,7 @@ main.profile {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
-      font-weight: 500;
+      font-weight: 600;
       font-size: 15px;
       color: #4c88d0;
       background-color: #eee;
@@ -27,16 +27,25 @@ main.profile {
       cursor: pointer;
       span.down-arrow {
         margin-left: auto;
+        transition: 0.6s;
+        &.active {
+          transform: rotateX(180deg);
+        }
       }
     }
     div.menu-container {
       width: 100%;
       overflow: hidden;
+      position: relative;
+      display: block;
       div.menu-slide {
         width: 100%;
         margin: 0;
         transition: 1s;
         transform: translateY(0px);
+        &.active {
+          transform: translateY(-320px);
+        }
         ul {
           background-color: white;
           padding-left: 20px;
@@ -53,7 +62,7 @@ main.profile {
             margin: 0;
             list-style: none;
             font-family: sans-serif;
-            font-weight: 300;
+            font-weight: 500;
             font-size: 14px;
             padding-left: 13px;
             height: 40px;
@@ -66,6 +75,7 @@ main.profile {
               color: white;
               background-color: #298dff;
             }
+
             &.title {
               font-weight: 500;
               font-size: 14px;
@@ -80,8 +90,108 @@ main.profile {
               text-decoration: none;
             }
           }
+          li.title {
+            font-weight: 600;
+          }
+          &:nth-child(2) {
+            margin-bottom: 1rem;
+          }
         }
       }
     }
   }
+}
+
+section.details {
+  p.profile-terms {
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 500;
+    line-height: 20px;
+    background-color: #f2f2f7;
+    padding: 12px 50px;
+    border-radius: 5px;
+    width: calc(100vw - 117px);
+    margin: auto;
+  }
+  .profile-owner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 25px);
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 25px);
+    margin: auto;
+    height: 130px;
+    img.avatar {
+      background-color: purple;
+      width: 50px;
+      border-radius: 50%;
+      padding: 5px;
+      width: 50px;
+    }
+    .name-username {
+      width: 100%;
+      padding-left: 15px;
+      h4 {
+        margin-bottom: 5px;
+        font-size: 16px;
+      }
+      p {
+        margin-top: 5px;
+        font-size: 13px;
+      }
+    }
+    button {
+      border: none;
+      outline: none;
+      color: dodgerblue;
+      background-color: white;
+      font-weight: 600;
+      font-size: 15px;
+      width: 70px;
+      height: 100px;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  .personal {
+    width: calc(100% - 25px);
+    margin: auto;
+    h5.personal-title {
+      height: 40px;
+      border-radius: 5px;
+      background-color: #f2f2f7;
+      justify-content: center;
+      align-items: center;
+      line-height: 40px;
+      padding-left: 10px;
+    }
+    p.phone {
+      padding-left: 8px;
+      font-size: 14px;
+    }
+    input.enter-phone {
+      margin-left: 2px;
+      height: 26px;
+      border-radius: 5px;
+      border: 1px solid #d5d5d9;
+      padding-left: 10px;
+    }
+  }
+}
+
+footer.home {
+  display: none;
+}
+footer.profile {
+  display: block;
+  position: relative;
 }
