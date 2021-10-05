@@ -132,7 +132,10 @@ nav {
 @media screen and (min-width: 770px) {
   nav {
     .right-nav {
-      button.tab-btn {
+      // a.tab-btn {
+      // }
+      button.tab-btn,
+      a.tab-btn {
         height: 100%;
         background-color: white;
         outline: none;
@@ -225,6 +228,14 @@ nav {
         }
         &.sign-in {
           display: block;
+          text-decoration: none;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          color: #1164c3;
+          font-weight: 700;
+          font-size: 13px;
+          text-transform: uppercase;
           &:hover {
             background-color: #eaeaea;
           }

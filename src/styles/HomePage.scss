@@ -12,6 +12,11 @@ main.homepage {
       font-size: 13px;
       font-weight: 400;
     }
+    h1.sign-in-title {
+      margin-top: -2rem;
+      color: #595959;
+      font-weight: 500;
+    }
     form {
       display: flex;
       flex-direction: column;
@@ -19,7 +24,12 @@ main.homepage {
       align-items: stretch;
       width: 90vw;
       max-width: 350px;
-      input[name="meeting-code"] {
+      label {
+        font-weight: 400;
+        margin: 10px 0 5px;
+        color: #747487;
+      }
+      input.join-meeting {
         height: 45px;
         font-size: 16px;
         padding: 0 10px;

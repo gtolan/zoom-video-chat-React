@@ -45,9 +45,11 @@ const Navbar = () => {
                         </ul>
                     </span>
                 </button> 
-                <button className="tab-btn sign-in">
+                {/* <button className="tab-btn sign-in"> */}
+                    <Link to="/sign-in" className="tab-btn sign-in">
                     Sign in
-                </button>  
+                    </Link>
+                {/* </button>   */}
                 <button className="tab-btn sign-up">
                     Sign up, it's free
                 </button>  

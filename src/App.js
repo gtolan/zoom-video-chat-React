@@ -12,6 +12,7 @@ import MeetingRoom from './components/MeetingRoom.js';
 // import Callee from './components/Callee';
 import ChatRoom from './components/ChatRoom';
 import Profile from './components/Profile';
+import SignIn from './components/SignIn.js';
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
           </header>
 
             <Switch>
-              <Route path="/about">
-                <h1>ZZOOM aBOUT</h1>
+              <Route path="/sign-in">
+                <SignIn/>
               </Route>
               <Route path="/meeting-room/:roomID">
                 <ChatRoom/>

@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import { useHistory } from "react-router-dom";
 import '../styles/HomePage.scss';
-// import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-// import db from '../firebaseInit';
-
-const HomePage = () => {
-
-    const [btnDisabled, toggleBtnDisabled] = useState(true);
+import { useState } from 'react';
+import { useHistory, Link } from "react-router-dom";
+const SignIn = () => {
+        const [btnDisabled, toggleBtnDisabled] = useState(true);
     const [meetingRoomID, setMeetingRoomID] = useState(true);
     const history = useHistory();
     const submitHandler = (e) => {
@@ -20,7 +16,7 @@ const HomePage = () => {
 
     const inputChanged = (e) => {
             //enable join btn
-            e.target.value.length > 5 ?
+            e.target.value.length > 2 ?
             (toggleBtnDisabled(false)) :
             (toggleBtnDisabled(true));
             //set the input value in state
@@ -30,14 +26,18 @@ const HomePage = () => {
     return (
         <main className="homepage">
             <section>
-                    <p className="title">Meeting ID or Personal Link Name</p>
+                    <h1 className="sign-in-title">Sign In</h1>
+                    <p className="title">New to ZZoom? <Link to="/sign-up">Sign up free</Link></p>
                     <form className="meeting-room-form" onSubmit={submitHandler}>
-                        <input type="text" className="join-meeting" onChange={inputChanged} placeholder="Enter Meeting ID or Personal Link Name"/>
+                        <label>Name or Email</label>
+                        <input type="text" className="join-meeting" onChange={inputChanged} placeholder="Your name or Your email"/>
+                        <label>Password</label>
+                        <input type="password" className="join-meeting" onChange={inputChanged} placeholder="Password"/>
                         <p className="meeting-terms">
-                            By clicking "Join", you agree to our Terms of Services and Privacy Statement
+                            By clicking "Sign In", you agree to our Terms of Services and Privacy Statement
                         </p>
                         <button className="submit" type="submit" disabled={btnDisabled}>
-                            Join
+                            Sign In
                         </button>
                     </form>
             </section>
@@ -45,4 +45,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default SignIn
