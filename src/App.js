@@ -11,6 +11,7 @@ import MeetingRoom from './components/MeetingRoom.js';
 // import Caller from './components/Caller';
 // import Callee from './components/Callee';
 import ChatRoom from './components/ChatRoom';
+import Profile from './components/Profile';
 
 function App() {
   return (
@@ -25,14 +26,11 @@ function App() {
               <Route path="/about">
                 <h1>ZZOOM aBOUT</h1>
               </Route>
-              <Route path="/callee">
-                {/* <Callee/> */}
-              </Route>
-              <Route path="/caller">
-                {/* <Caller/> */}
-              </Route>
               <Route path="/meeting-room/:roomID">
                 <ChatRoom/>
+              </Route>
+              <Route path="/profile">
+                <Profile/>
               </Route>
               <Route path="/faq">
                 <FAQs/>

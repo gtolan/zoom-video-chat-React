@@ -1,0 +1,33 @@
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+main.profile {
+  section.menu {
+    @extend .flex-col;
+    h4.selected-option {
+      width: calc(95vw - 15px);
+      padding: 5px 10px 5px 15px;
+      margin: 0;
+    }
+    ul {
+      background-color: #eee;
+      padding-left: 20px;
+      height: 35px;
+      border-radius: 5px;
+      width: 96%;
+      list-style: none;
+      li {
+        a {
+          text-transform: none;
+          outline: none;
+          cursor: pointer;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
