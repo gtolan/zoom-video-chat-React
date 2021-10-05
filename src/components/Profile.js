@@ -19,7 +19,7 @@ const Profile = () => {
                 <h4 onClick={toggleMenu} className={`selected-option`}>{selectedOption}
                     <span className={`down-arrow ${menuIsOpen ? 'active' : ''}`}>&#9660;</span></h4>
                 <div className="menu-container">
-                    <div className={`menu-slide ${menuIsOpen ? 'active' : ''}`}>
+                    <div className={`menu-slide left ${menuIsOpen ? 'active' : ''}`}>
                         <ul default="profile" >
                             <li disabled className="title">Personal</li>
                             <li >Profile</li>
@@ -32,14 +32,20 @@ const Profile = () => {
                             <li >Account Management</li>
                             <li >Advanced</li>
                         </ul>
-                           <ProfileBody/>
+                          
                     </div>
+                     <div className={`menu-slide details ${menuIsOpen ? 'active' : ''}`}>
+                     <ProfileBody/>
+                       
+                     </div>
+                     
                  
                     
                 </div>
+                 <ProfileFooter/>
             </section>
-            
-            <ProfileFooter/>
+           
+          
         </main>
     )
 }

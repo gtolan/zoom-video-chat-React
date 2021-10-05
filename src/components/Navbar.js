@@ -39,9 +39,9 @@ const Navbar = () => {
                     </span>
                     <span className="desktop menu-dropdown">
                         <ul>
-                            <li><Link to="/meeting/with-video">With Video Off</Link></li>
-                            <li><Link to="/meeting/without-video">With Video On</Link></li>
-                            <li><Link to="/meeting/screen-share">Screen Share Only</Link></li>
+                            <li><Link to="/meeting-room/with-video">With Video Off</Link></li>
+                            <li><Link to="/meeting-room/without-video">With Video On</Link></li>
+                            <li><Link to="/meeting-room/screen-share">Screen Share Only</Link></li>
                         </ul>
                     </span>
                 </button> 

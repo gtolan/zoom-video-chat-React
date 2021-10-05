@@ -21,7 +21,8 @@ const ProfileBody = () => {
         
         setPhoneValue(e.target.value)
     }
-
+    const hostKey = '*******';
+    const meetingID = 'wkqweqwswq0112wssa!sadas';
 
     return (
               <section className="details">
@@ -42,9 +43,35 @@ const ProfileBody = () => {
                     <div className="personal">
                         <h5 className="personal-title">Personal</h5>
                         <p className="phone">Phone</p>
-                        <input placeholder="087 2131 232" className="enter-phone" type="number" onChange={phoneInputChange} value={phoneValue}/>
+                        <div className="edit-information">
+                            
+                            <input placeholder="087 2131 232" name="phone" className="enter-phone" type="number" onChange={phoneInputChange} value={phoneValue}/>
+                            <button>Edit</button>
+                        </div>
                         <p className="email">Email</p>
-                        <input placeholder="087 2131 232" className="enter-email" type="text" onChange={emailInputChange} value={emailValue}/>
+                        <div className="edit-information">
+                           
+                            <input placeholder="emailName@email.com" name="email" className="enter-email" type="text" onChange={emailInputChange} value={emailValue}/>
+                            <button>Edit</button>
+                        </div>
+                    </div>
+
+                    <div className="personal">
+                        <h5 className="personal-title">Meeting</h5>
+                        <p className="phone">Personal Meeting ID</p>
+                        <div className="edit-information">
+                            <p className="item">
+                            {meetingID}
+                            </p>
+                            <button>Edit</button>
+                        </div>
+                        <p className="host-key">Host Key</p>
+                        <div className="edit-information">
+                            <p className="item">
+                                    {hostKey}
+                            </p>
+                            <button>Edit</button>
+                        </div>
                     </div>
                 </div>
             </section>
