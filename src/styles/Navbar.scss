@@ -134,6 +134,13 @@ nav {
     .right-nav {
       // a.tab-btn {
       // }
+      a.tab-btn.nav-btn-link {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        text-decoration: none;
+        font-weight: 700;
+      }
       button.tab-btn,
       a.tab-btn {
         height: 100%;

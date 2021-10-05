@@ -22,14 +22,16 @@ const Navbar = () => {
             </div>
             <div className="right-nav">
 
-                <button className="tab-btn join">
+   
+                    <Link to="/" className="tab-btn nav-btn-link">
                     <span className="mobile">
                         Join
                     </span>
                     <span className="desktop">
                         Join a meeting
                     </span>
-                </button>  
+                    </Link>
+          
                 <button className="tab-btn host">
                     <span className="mobile">
                         Host
@@ -46,7 +48,7 @@ const Navbar = () => {
                     </span>
                 </button> 
                 {/* <button className="tab-btn sign-in"> */}
-                    <Link to="/sign-in" className="tab-btn sign-in">
+                    <Link to="/sign-in" className="tab-btn sign-in nav-btn-link">
                     Sign in
                     </Link>
                 {/* </button>   */}
