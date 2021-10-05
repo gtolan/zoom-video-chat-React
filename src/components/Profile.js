@@ -5,25 +5,32 @@ import { useState } from 'react';
 
 //Uses 'ul' instead of 'select' for animation and easier styling
 const Profile = () => {
-
+    const [menuIsOpen, setToggleMenu] = useState(true)
+    const toggleMenu = () => {
+        console.log('toggle menu')
+    }
 
     const [selectedOption, setSelectedOption] = useState('Profile')
     return (
         <main className="profile">
             <section className="menu">
-                <h4 className="selected-option">{selectedOption}</h4>
-                <ul default="profile" >
-                    <li disabled className="profile-title">Personal</li>
-                    <li ><Link to="profile">Profile</Link></li>
-                    <li ><Link to="meetings">Meetings</Link></li>
-                    <li ><Link to="settings">Settings</Link></li>
-                </ul>
-                <ul>
-                    <li disabled ="admin-title" className="menu-title">Admin</li>
-                    <li ><Link to="user-management">User Management</Link></li>
-                    <li ><Link to="account-management">Account Management</Link></li>
-                    <li ><Link to="advanced">Advanced</Link></li>
-                </ul>
+                <h4 onClick={toggleMenu} className={`selected-option ${menuIsOpen ? 'active' : ''}`}>{selectedOption}<span className="down-arrow">&#9660;</span></h4>
+                <div className="menu-container">
+                <div className="menu-slide">
+                    <ul default="profile" >
+                        <li disabled className="title">Personal</li>
+                        <li >Profile</li>
+                        <li >Meetings</li>
+                        <li >Settings</li>
+                    </ul>
+                    <ul>
+                        <li disabled ="title" className="title">Admin</li>
+                        <li >User Management</li>
+                        <li >Account Management</li>
+                        <li >Advanced</li>
+                    </ul>
+                </div>
+                </div>
             </section>
             <section className="details">
                 <ul>

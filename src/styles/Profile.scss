@@ -9,23 +9,77 @@ main.profile {
   section.menu {
     @extend .flex-col;
     h4.selected-option {
+      z-index: 2;
       width: calc(95vw - 15px);
       padding: 5px 10px 5px 15px;
       margin: 0;
-    }
-    ul {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      font-weight: 500;
+      font-size: 15px;
+      color: #4c88d0;
       background-color: #eee;
-      padding-left: 20px;
-      height: 35px;
-      border-radius: 5px;
-      width: 96%;
-      list-style: none;
-      li {
-        a {
-          text-transform: none;
-          outline: none;
-          cursor: pointer;
-          text-decoration: none;
+      height: 30px;
+      border-radius: 6px;
+      font-family: sans-serif;
+      cursor: pointer;
+      span.down-arrow {
+        margin-left: auto;
+      }
+    }
+    div.menu-container {
+      width: 100%;
+      overflow: hidden;
+      div.menu-slide {
+        width: 100%;
+        margin: 0;
+        transition: 1s;
+        transform: translateY(0px);
+        ul {
+          background-color: white;
+          padding-left: 20px;
+          height: auto;
+          border-radius: 5px;
+          width: 96%;
+          list-style: none;
+          padding-left: 0px;
+          font-family: sans-serif;
+          font-weight: 300;
+          font-size: 14px;
+          margin: auto;
+          li {
+            margin: 0;
+            list-style: none;
+            font-family: sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            padding-left: 13px;
+            height: 40px;
+            justify-content: flex-start;
+            align-items: center;
+            display: flex;
+            border-radius: 5px;
+            cursor: pointer;
+            &:hover {
+              color: white;
+              background-color: #298dff;
+            }
+            &.title {
+              font-weight: 500;
+              font-size: 14px;
+              padding-left: 3px;
+              text-transform: uppercase;
+              font-size: 12px;
+            }
+            a {
+              text-transform: none;
+              outline: none;
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
         }
       }
     }
