@@ -367,3 +367,11 @@ button.tab-btn.hamburger {
 .hamburger--3dx.is-active .hamburger-inner::after {
   transform: translate3d(0, -10px, 0) rotate(-45deg);
 }
+
+nav.chat-room {
+  background-color: #000000ad;
+}
+nav.chat-room .right-nav button.tab-btn,
+nav.chat-room .right-nav a.tab-btn {
+  display: none;
+}
