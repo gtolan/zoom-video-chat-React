@@ -67,10 +67,23 @@
     border: none;
     font-weight: 700;
     &.cancel {
-      background-color: red;
+      color: #298dff;
+      background-color: white;
+      border: 1px solid dodgerblue;
+      transition: 0.35s;
+      &:hover {
+        color: red;
+        background-color: white;
+        border: 1px solid red;
+      }
     }
     &.join {
-      background-color: green;
+      background-color: #298dff;
+      &:hover {
+        color: #298dff;
+        background-color: white;
+        border: 1px solid dodgerblue;
+      }
     }
   }
   .modal-room {
@@ -107,6 +120,7 @@
   width: 100vw;
   button {
     // height: 30px;
+    cursor: pointer;
     background-color: transparent;
     border: none;
     border-radius: 3px;
@@ -120,45 +134,42 @@
     flex-direction: column;
     height: 58px;
     justify-content: center;
+    transition: 0.2s;
     align-items: center;
     svg {
       width: auto;
       height: 79px;
-      &.video-cam {
-        width: auto;
-        height: 79px;
-      }
-      &.create-room {
-        width: auto;
-        fill: gray;
-        height: 37px;
-        margin-bottom: 5px;
-      }
-      &.create-room.off.hide {
-        display: none;
-        width: 50px;
-        fill: grey;
-      }
-      &.video-cam.show.on,
-      &.create-room.on.show {
+      &.video-cam.show,
+      &.show {
         display: block;
-        width: 50px;
         fill: green;
+        width: 50px;
       }
-      &.video-cam.hide {
+      &.video-cam.hide,
+      &.hide {
+        display: none;
+      }
+    }
+
+    &.hide {
+      svg.video-cam.show,
+      svg.show {
+        display: none;
+      }
+      svg.video-cam.hide,
+      svg.hide {
         display: block;
         width: 50px;
         fill: red;
       }
-
-      &.video-cam.on,
-      &.create-room.on {
+      svg.hide {
+        fill: #5a5454;
         display: block;
       }
-      &.video-cam.off.hide,
-      &.create-room.show.off {
-        display: none;
-      }
+    }
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 }
@@ -173,6 +184,13 @@ main.chat-room {
 }
 .room-id-edit {
   display: none;
+}
+.room-input {
+  height: 20px;
+  padding: 10px;
+  margin-bottom: auto;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
 }
 .callee-controls {
   display: none;

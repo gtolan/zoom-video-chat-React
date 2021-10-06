@@ -25,6 +25,7 @@ const useWebRTC = () => {
     let remoteStream = null;
     let docRef;
     let roomId = null;
+    let roomReady = false;
 
 
     async function createRoom() {
@@ -222,21 +223,23 @@ const useWebRTC = () => {
 
     }
     async function openUserMedia(e) {
-    console.log('openUserMedia')
-    const stream = await navigator.mediaDevices.getUserMedia(
-        {video: true, audio: true});
-    document.querySelector('#localVideo').srcObject = stream;
-    localStream = stream;
-    remoteStream = new MediaStream();
-    document.querySelector('#remoteVideo').srcObject = remoteStream;
+        console.log('openUserMedia')
+        const stream = await navigator.mediaDevices.getUserMedia(
+            {video: true, audio: true});
+        document.querySelector('#localVideo').srcObject = stream;
+        localStream = stream;
+        remoteStream = new MediaStream();
+        roomReady = true;
+        document.querySelector('#remoteVideo').srcObject = remoteStream;
 
-    console.log('Stream:', document.querySelector('#localVideo').srcObject);
-    console.log('Stream:', document.querySelector('#remoteVideo').srcObject);
-    document.querySelector('#cameraBtn').disabled = true;
-    document.querySelector('#joinBtn').disabled = false;
-    document.querySelector('#createBtn').disabled = false;
-    document.querySelector('#hangupBtn').disabled = false;
-    console.log('fin open use media');
+        console.log('Stream:', document.querySelector('#localVideo').srcObject);
+        console.log('Stream:', document.querySelector('#remoteVideo').srcObject);
+        document.querySelector('#cameraBtn').disabled = true;
+        document.querySelector('#cameraBtn').classList.add('hide');
+        document.querySelector('#joinBtn').disabled = false;
+        document.querySelector('#createBtn').disabled = false;
+        document.querySelector('#hangupBtn').disabled = false;
+        console.log('fin open use media');
     }
 
     async function hangUp(e) {
@@ -300,7 +303,7 @@ const useWebRTC = () => {
     });
     }
 
-    return {createRoom, joinRoom, openUserMedia, hangUp};
+    return {createRoom, joinRoom, openUserMedia, hangUp, roomReady};
 
 }//END
 
