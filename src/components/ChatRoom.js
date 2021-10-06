@@ -25,9 +25,10 @@ const ChatRoom = () => {
         const chatRoomID = pathname.substring(pathname.lastIndexOf('/') + 1)
         const isHost = pathname.includes('host');
         console.log(isHost, 'isHost')
+        const [createRoomBtn, setCreateRoomBtn ] = useState(false)
     return (
         <div>
-        <main className="chat-room">
+        <main className={`chat-room ${isHost ? '' : 'modal-open'}`}>
         
 
             <div>
@@ -38,11 +39,13 @@ const ChatRoom = () => {
                 <video id="remoteVideo" autoPlay playsInline></video>
             </div>
             <section>
-                <h5>Enter ID for room to join:</h5>
-                <div className="mdc-text-field">
-                    <input type="text" id="room-id" className="mdc-text-field__input"/>
-                    <label className="mdc-floating-label" htmlFor="my-text-field">Room ID</label>                 
-                </div>            
+                <div className="room-id-edit">
+                    <h5>Enter ID for room to join:</h5>
+                    <div className="mdc-text-field">
+                        <input type="text" id="room-id" value={chatRoomID} className="mdc-text-field__input"/>
+                        <label className="mdc-floating-label" htmlFor="my-text-field">Room ID</label>                 
+                    </div>   
+                </div>         
                       
                        
 
@@ -53,8 +56,16 @@ const ChatRoom = () => {
                 <span className="control-text">{`${!cameraIsOn ? 'Start Video' : 'Stop Video'} `}</span>
                 </button>
                 <button id="createBtn">
+                    <svg className={` show create-room ${createRoomBtn ? 'off' : 'on'} `} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    <svg className={` hide create-room ${createRoomBtn ? 'on' : 'off'} `} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
                 Create room
                 </button>
+                <button id="createBtn">
+                    <svg className={` show create-room ${createRoomBtn ? 'off' : 'on'} `} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                    <svg className={` hide create-room ${createRoomBtn ? 'on' : 'off'} `} xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                Share Chat
+                </button>
+                <div className="callee-controls">
                 <button id="joinBtn">
                 Join room
                 </button>
@@ -64,6 +75,7 @@ const ChatRoom = () => {
                 <button id="confirmJoinBtn">
                     Join
                 </button>
+                </div>
             </div>
             </section>
             

@@ -25,6 +25,8 @@
     &#remoteVideo {
       width: 90vw;
       background-color: #5a5454;
+      max-height: 72vh;
+      height: 55vh;
     }
   }
 }
@@ -120,11 +122,25 @@
     justify-content: center;
     align-items: center;
     svg {
+      width: auto;
+      height: 79px;
       &.video-cam {
         width: auto;
         height: 79px;
       }
-      &.video-cam.show.on {
+      &.create-room {
+        width: auto;
+        fill: gray;
+        height: 37px;
+        margin-bottom: 5px;
+      }
+      &.create-room.off.hide {
+        display: none;
+        width: 50px;
+        fill: grey;
+      }
+      &.video-cam.show.on,
+      &.create-room.on.show {
         display: block;
         width: 50px;
         fill: green;
@@ -134,10 +150,13 @@
         width: 50px;
         fill: red;
       }
-      &.video-cam.on {
+
+      &.video-cam.on,
+      &.create-room.on {
         display: block;
       }
-      &.video-cam.off {
+      &.video-cam.off.hide,
+      &.create-room.show.off {
         display: none;
       }
     }
@@ -147,9 +166,16 @@
 main.chat-room {
   background-color: #060606e0;
   margin-top: -17px;
+  min-height: calc(100vh - 61px);
   &.modal-open {
     filter: brightness(0.35);
   }
+}
+.room-id-edit {
+  display: none;
+}
+.callee-controls {
+  display: none;
 }
 
 @keyframes slideIn {
