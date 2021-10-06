@@ -23,6 +23,8 @@ const ChatRoom = () => {
         const { pathname } = useLocation();
         console.log(pathname,'path')
         const chatRoomID = pathname.substring(pathname.lastIndexOf('/') + 1)
+        const isHost = pathname.includes('host');
+        console.log(isHost, 'isHost')
     return (
         <div>
         <main className="chat-room">
@@ -66,7 +68,7 @@ const ChatRoom = () => {
             </section>
             
         </main>
-         <div className="callee-modal">
+         <div className={`callee-modal ${isHost ? '' : 'active'}`}>
                  <h4 className="modal-welcome">You have been invited to a video call with the ID:</h4>
                             <div className="modal-room">{chatRoomID}</div>
                             <div className="modal-controls">

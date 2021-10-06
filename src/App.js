@@ -27,7 +27,11 @@ function App() {
               <Route path="/sign-in">
                 <SignIn/>
               </Route>
-              <Route path="/meeting-room/:roomID">
+              <Route path="/host-meeting-room">
+                <ChatRoom/>
+              </Route>
+              <Route 
+              path={["/join-meeting-room/:roomID", "/join-meeting-room/"]}>
                 <ChatRoom/>
               </Route>
               <Route path="/profile">

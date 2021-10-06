@@ -13,7 +13,7 @@ const HomePage = () => {
         console.log(e,'change paegg')
         e.preventDefault()
         //TODO: validate ID before or after submit?
-        history.push(`/meeting-room/${meetingRoomID}`)
+        history.push(`/join-meeting-room/${meetingRoomID}`)
     }
 
 

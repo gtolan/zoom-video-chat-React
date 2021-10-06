@@ -11,8 +11,9 @@ const Navbar = () => {
     const history = useHistory()
     console.log(location.pathname, 'loco')
     const { pathname } = location;
+    
     const createMeeting = () => {
-        history.pushState('/meeting-room')
+        history.push('/host-meeting-room')
     }
 
     const [hamburderIsOpen, setHamburgerToggle] = useState(false)
@@ -31,7 +32,7 @@ const Navbar = () => {
             <div className="right-nav">
 
    
-                    <Link to="/" className="tab-btn nav-btn-link">
+                    <Link to="/join-meeting-room/" className="tab-btn nav-btn-link">
                     <span className="mobile">
                         Join
                     </span>

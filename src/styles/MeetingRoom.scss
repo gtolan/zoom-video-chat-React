@@ -3,6 +3,8 @@
   align-items: center;
   flex-direction: column;
   display: flex;
+  padding-top: 2rem;
+  position: relative;
   video {
     width: 50%;
     background-color: gainsboro;
@@ -11,16 +13,18 @@
       height: 150px;
       position: absolute;
       left: 0;
-      background-color: red;
+      background-color: black;
       transition: 1s;
-      transform: translateX(calc(50vw - 100px));
+      transform: translateX(2.5vw);
+      top: 22px;
+
       &.active {
         transform: translate(0px, 50%);
       }
     }
     &#remoteVideo {
       width: 90vw;
-      background-color: gainsboro;
+      background-color: #5a5454;
     }
   }
 }
@@ -33,20 +37,20 @@
   min-height: 250px;
   top: calc(50vh - 125px);
   left: calc(50vw - 150px);
-  transition: 1s;
-  transform: translate(100vh) scale(1);
+  transition: 0.41s;
+  transform: translate(100vh) scale(0.61);
   border-radius: 8px;
   box-shadow: 0px 3px 12px #8080808f;
   visibility: hidden;
-  transform: translate(0px, 0px) scale(1);
-  visibility: visible;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   &.active {
-    transform: translate(0px, 0px) scale(1);
-    visibility: visible;
+    animation-name: slideIn;
+    animation-duration: 0.5s;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards;
   }
   button {
     height: 30px;
@@ -145,5 +149,16 @@ main.chat-room {
   margin-top: -17px;
   &.modal-open {
     filter: brightness(0.35);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translate(100vh) scale(0.61);
+    visibility: visible;
+  }
+  100% {
+    visibility: visible;
+    transform: translate(0px, 0px) scale(1);
   }
 }
