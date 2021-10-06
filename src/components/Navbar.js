@@ -1,11 +1,19 @@
 import '../styles/Navbar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import zzoomLogo from '../images/zzoomLogo.png';
 import { useState } from 'react';
 
 
+
 const Navbar = () => {
     console.log('Navbar render')
+    const location = useLocation()
+    const history = useHistory()
+    console.log(location.pathname, 'loco')
+    const { pathname } = location;
+    const createMeeting = () => {
+        history.pushState('/meeting-room')
+    }
 
     const [hamburderIsOpen, setHamburgerToggle] = useState(false)
 
@@ -14,7 +22,7 @@ const Navbar = () => {
     }
 
     return (
-        <nav>   
+        <nav className={pathname.includes('meeting-room') ? 'chat-room' : ''}>   
             <div className="left-nav">
                 <Link to="/">
                     <img src={zzoomLogo} alt="zzoom page logo" className="logo-img" />
@@ -32,7 +40,7 @@ const Navbar = () => {
                     </span>
                     </Link>
           
-                <button className="tab-btn host">
+                <button className="tab-btn host" onClick={createMeeting}>
                     <span className="mobile">
                         Host
                     </span>
@@ -41,9 +49,9 @@ const Navbar = () => {
                     </span>
                     <span className="desktop menu-dropdown">
                         <ul>
-                            <li><Link to="/meeting-room/with-video">With Video Off</Link></li>
-                            <li><Link to="/meeting-room/without-video">With Video On</Link></li>
-                            <li><Link to="/meeting-room/screen-share">Screen Share Only</Link></li>
+                            <li><Link to="/meeting-room">With Video Off</Link></li>
+                            <li><Link to="/meeting-room">With Video On</Link></li>
+                            <li><Link to="/meeting-room">Screen Share Only</Link></li>
                         </ul>
                     </span>
                 </button> 

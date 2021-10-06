@@ -7,7 +7,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import MeetingRoom from './components/MeetingRoom.js';
+
 // import Caller from './components/Caller';
 // import Callee from './components/Callee';
 import ChatRoom from './components/ChatRoom';
