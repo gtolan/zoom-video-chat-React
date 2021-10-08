@@ -71,9 +71,12 @@ const useWebRTC = () => {
         await setDoc(roomRefDB, roomWithOffer);
 
         roomId = roomRefDB.id;
+        let host = 'https://zzoom-chat.web.app/'
         //console.log(`New room created with SDP offer. Room ID: ${roomRefDB.id}`);
         document.querySelector(
-            '#currentRoom').innerText = `${roomRefDB.id}`;
+            '#currentRoom').innerText = `${host}${roomRefDB.id}`;
+            document.querySelector(
+            '#currentRoom').href = `${host}join-meeting-room/${roomRefDB.id}`;
         // Code for showing Room ID above
 
         // Listening for remote session description below       
@@ -130,8 +133,11 @@ const useWebRTC = () => {
             addEventListener('click', async () => {
                 roomId = document.querySelector('#join-room-id').value;
                 console.log('Join room: ', roomId);
+                const host = 'https://zzoom-chat.web.app/';
                 document.querySelector(
-                    '#currentRoom').innerText = `${roomId}`;
+                    '#currentRoom').innerText = `${host}${roomId}`;
+                    console.log(document.querySelector(
+                    '#currentRoom'))
                 await joinRoomById(roomId);
             }, {once: true});
         console.log('open modal')

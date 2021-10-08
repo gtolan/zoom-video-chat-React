@@ -193,6 +193,21 @@ main.chat-room {
   margin-top: auto;
 }
 
+.room-link {
+  width: 60%;
+  margin-top: 10px;
+  margin: 10px auto 10px auto;
+  text-align: center;
+  background-color: #5a5454;
+  color: #298dff;
+  max-height: 30px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
+
 #controls button#createBtn.caller-control.create.hide {
   display: none;
 }

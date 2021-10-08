@@ -1,12 +1,13 @@
 import useWebRTC from '../hooks/useWebRTC';
 import { useEffect, useState, createRef } from 'react';
 import '../styles/MeetingRoom.scss';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory, Link } from 'react-router-dom';
 const ChatRoom = () => {
     const currentRoom = createRef()
     const history = useHistory();
+
+
     const closeModal = () => {
-        console.log('close modal')
         history.push("/");
     }
     const inputChange = () => {
@@ -19,51 +20,38 @@ const ChatRoom = () => {
     const handleCreateRoom = () => {
                 setCreatedRoom(!createdRoom);
                 createRoom();
-            // setCreatedRoom(true)
     }
     const shareWithCallee = ()=> {
-        // https://wa.me/?text=host-meeting-room
                 const id = currentRoom.current.innerText;
-                console.log(id)
                 const shareViaWhatsAppLink = `https://wa.me/?text=${id}`  //urlencodedtext
-                console.log(shareViaWhatsAppLink, 'shareViaWhatsAppLink')
+                const win = window.open(shareViaWhatsAppLink, "_blank");
+                win.focus();
     }
-    const enterAsCallee = () =>{
-        setStartChat(!startChat)
-    }
+
     const {createRoom, joinRoom, openUserMedia, hangUp, roomReady} = useWebRTC()
-        useEffect(() => {
+        
+    useEffect(() => {
                 document.querySelector('#hangupBtn').addEventListener('click', hangUp);
                 document.querySelector('#createBtn').addEventListener('click', handleCreateRoom);
                 document.querySelector('#joinBtn').addEventListener('click', joinRoom);
                        if(!isHost){
             setCreateRoomBtn(false)
         }
-        }, [])
+    }, [])
 
-        const [createdRoom, setCreatedRoom] = useState(false)
-        const [cameraIsOn, setCameraIsOn] = useState(false)
-        const [startChat, setStartChat] = useState(true)
-        // const location = useLocation()
-        const { pathname } = useLocation();
-        console.log(pathname,'path')
-        const chatRoomID = pathname.substring(pathname.lastIndexOf('/') + 1)
-        const isHost = pathname.includes('host');
+    const [createdRoom, setCreatedRoom] = useState(false)
+    const [cameraIsOn, setCameraIsOn] = useState(false)
+    const { pathname } = useLocation();
+    const chatRoomID = pathname.substring(pathname.lastIndexOf('/') + 1)
+    const isHost = pathname.includes('host');
+    const [createRoomBtn, setCreateRoomBtn ] = useState(false)
       
-        const [createRoomBtn, setCreateRoomBtn ] = useState(false)
-          console.log(isHost, 'isHost')
- 
-
-
-    console.log(roomReady,'roomReady')
     
     return (
         <div>
         <main className={`chat-room ${isHost ? '' : 'modal-open'}`}>
 
-            <div>
-                <span id="currentRoom" ref={currentRoom}></span>
-            </div>
+            
             <div id="videos">
                 <video id="localVideo" muted autoPlay playsInline></video>
                 <video id="remoteVideo" autoPlay playsInline></video>
@@ -111,6 +99,9 @@ const ChatRoom = () => {
                     </button>
                 </div>
             </section>
+            <div className="room-link">
+                <a href="" target="blank" id="currentRoom" ref={currentRoom}></a>
+            </div>
             
         </main>
          <div className={`callee-modal ${isHost ? '' : 'active'}`}>
