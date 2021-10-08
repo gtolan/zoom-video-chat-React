@@ -133,9 +133,9 @@ const useWebRTC = () => {
             addEventListener('click', async () => {
                 roomId = document.querySelector('#join-room-id').value;
                 console.log('Join room: ', roomId);
-                const host = 'https://zzoom-chat.web.app/';
+                // const host = 'https://zzoom-chat.web.app/';
                 document.querySelector(
-                    '#currentRoom').innerText = `${host}${roomId}`;
+                    '#currentRoom').innerText = `${roomId}`;
                     console.log(document.querySelector(
                     '#currentRoom'))
                 await joinRoomById(roomId);
