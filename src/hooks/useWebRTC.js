@@ -1,5 +1,4 @@
-import { doc, getDoc, addDoc, collection, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
-
+import { doc, getDoc, getDocs, addDoc, collection, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import db from '../firebaseInit';
 
 const useWebRTC = () => {
@@ -263,16 +262,22 @@ const useWebRTC = () => {
     // Delete room on hangup
     if (roomId) {
         // const db = firestore();
-        const roomRefDB = db.collection('rooms').doc(roomId);
-        const calleeCandidates = await roomRefDB.collection('calleeCandidates').getDocs();
+        // roomRefDB = db.collection('rooms').doc(roomId);
+        const roomRefDB = await doc(collection(db, `Rooms`));
+        //const calleeCandidates = await roomRefDB.collection('calleeCandidates').getDocs();
+        const calleeCandidates = await getDocs(collection(db,`Rooms/${roomId}/calleeCandidates`));
+        console.log(calleeCandidates)
+        
         calleeCandidates.forEach(async candidate => {
-        await candidate.ref.delete();
+            await candidate.ref.delete();
         });
-        const callerCandidates = await roomRefDB.collection('callerCandidates').getDocs();
+        //const callerCandidates = getDocs(collection(db, "callerCandidates"));
+        const callerCandidates = await getDocs(collection(db,`Rooms/${roomId}/callerCandidates`));
         callerCandidates.forEach(async candidate => {
-        await candidate.ref.delete();
+            await candidate.ref.delete();
         });
-        await roomRefDB.delete();
+        // const stopChat = await doc(collection(db, `Rooms/${roomId}`));
+        // stopChat.delete();
     }
 
     document.location.reload(true);
