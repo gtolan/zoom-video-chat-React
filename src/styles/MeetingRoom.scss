@@ -72,9 +72,9 @@
       border: 1px solid dodgerblue;
       transition: 0.35s;
       &:hover {
-        color: red;
+        color: crimson;
         background-color: white;
-        border: 1px solid red;
+        border: 1px solid crimson;
       }
     }
     &.join {
@@ -159,7 +159,7 @@
       svg.hide {
         display: block;
         width: 50px;
-        fill: red;
+        fill: crimson;
       }
       svg.hide {
         fill: #5a5454;
@@ -198,6 +198,14 @@ main.chat-room {
 }
 #controls .callee-controls.show {
   display: block;
+  .show {
+    display: none;
+    fill: green;
+  }
+  .hide {
+    display: block;
+    fill: #5a5454;
+  }
 }
 #controls .callee-controls {
   display: none;
