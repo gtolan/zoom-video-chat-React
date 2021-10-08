@@ -7,13 +7,13 @@ const ChatRoom = () => {
     const history = useHistory();
     const [createdRoom, setCreatedRoom] = useState(false)
     const [cameraIsOn, setCameraIsOn] = useState(false)
-    const location = useLocation()
-    //const { pathname } = useLocation();
+    //const location = useLocation()
+    const { pathname } = useLocation();
     
     // const [chatID, setChatID] = useState()
-    const isHost = location.pathname.includes('host');
+    const isHost = pathname.includes('host');
     const [createRoomBtn, setCreateRoomBtn ] = useState(false)
-    const chatID = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+    const chatID = pathname.substring(pathname.lastIndexOf('/') + 1);
                             console.log(chatID, 'url')
     const [roomNum, setRoomNum] = useState(chatID)
     // const [modalChatID, setModalChatID] = useState()
