@@ -135,7 +135,7 @@ const useWebRTC = () => {
                 roomId = document.querySelector('#room-id').value;
                 console.log('Join room: ', roomId);
                 document.querySelector(
-                    '#currentRoom').innerText = `Current room is ${roomId} - You are the callee!`;
+                    '#currentRoom').innerText = `${roomId}`;
                 await joinRoomById(roomId);
             }, {once: true});
         console.log('open modal')
