@@ -122,10 +122,13 @@ const useWebRTC = () => {
         console.log('join room')
         document.querySelector('#createBtn').disabled = true;
         document.querySelector('#joinBtn').disabled = true;
-
+        document.querySelector('.callee-modal').classList.remove('active');
+        document.querySelector('.caller-control').classList.add('hide');
+        document.querySelector('.callee-controls').classList.add('show');
+        document.querySelector('main').classList.remove('modal-open');
         document.querySelector('#confirmJoinBtn').
             addEventListener('click', async () => {
-                roomId = document.querySelector('#room-id').value;
+                roomId = document.querySelector('#join-room-id').value;
                 console.log('Join room: ', roomId);
                 document.querySelector(
                     '#currentRoom').innerText = `${roomId}`;

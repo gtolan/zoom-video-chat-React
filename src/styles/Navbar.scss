@@ -30,12 +30,19 @@ nav {
   .right-nav {
     @extend .flex-row;
     height: 100%;
-
-    button.tab-btn {
+    button.tab-btn,
+    .nav-btn-link,
+    a.tab-btn.nav-btn-link {
       height: 100%;
       background-color: white;
       outline: none;
-
+      font-size: 14px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 500;
       padding: 0 15px;
       color: #1164c3;
       font-weight: 500;
@@ -126,6 +133,13 @@ nav {
         }
       }
     }
+  }
+}
+@media only screen and (min-width: 0px) and (max-width: 430px) {
+  button.tab-btn,
+  .nav-btn-link,
+  a.tab-btn.nav-btn-link {
+    padding: 0 15px;
   }
 }
 
@@ -372,6 +386,7 @@ nav.chat-room {
   background-color: black;
 }
 nav.chat-room .right-nav button.tab-btn,
-nav.chat-room .right-nav a.tab-btn {
+nav.chat-room .right-nav a.tab-btn,
+.right-nav a.tab-btn.nav-btn-link {
   display: none;
 }

@@ -36,7 +36,7 @@
   position: absolute;
   width: 300px;
   background-color: white;
-  min-height: 250px;
+  min-height: 180px;
   top: calc(50vh - 125px);
   left: calc(50vw - 150px);
   transition: 0.41s;
@@ -106,8 +106,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-
-    background-color: #80808052;
+    background-color: #8080801a;
     overflow: hidden;
   }
 }
@@ -191,10 +190,21 @@ main.chat-room {
   margin-bottom: auto;
   border-radius: 8px;
   border: 2px solid #e0e0e0;
+  margin-top: auto;
 }
-.callee-controls {
+
+#controls button#createBtn.caller-control.create.hide {
   display: none;
 }
+#controls .callee-controls.show {
+  display: block;
+}
+#controls .callee-controls {
+  display: none;
+}
+// .caller-control.hide {
+//   display: none;
+// }
 
 @keyframes slideIn {
   0% {

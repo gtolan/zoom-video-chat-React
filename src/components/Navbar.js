@@ -30,8 +30,6 @@ const Navbar = () => {
                 </Link>
             </div>
             <div className="right-nav">
-
-   
                     <Link to="/join-meeting-room/" className="tab-btn nav-btn-link">
                     <span className="mobile">
                         Join
