@@ -30,13 +30,13 @@ const useWebRTC = () => {
         document.querySelector('#shareBtn').classList.remove('hide');
         //Create DB ref
         const roomRefDB = doc(collection(db, "Rooms"));
-
+            console.log('roomRefDB', roomRefDB)
         //Start Peer connection
         peerConnection = new RTCPeerConnection(configuration);
 
         //Add Peer connction listeners
         registerPeerConnectionListeners(peerConnection);
-
+            console.log('peerConnection', peerConnection)
         //Get local stream and add it to peer connection
         localStream.getTracks().forEach(track => {
             //console.log('localStream ADD')

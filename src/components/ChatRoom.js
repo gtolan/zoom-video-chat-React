@@ -6,13 +6,13 @@ const ChatRoom = () => {
     const currentRoom = createRef()
     const history = useHistory();
 
-
+    const [modalChatID, setModalChatID] = useState()
     const closeModal = () => {
         history.push("/");
     }
     const inputChange = (e) => {
-                console.log('andle input change')
-                setChatID(e.target.value)
+                console.log('andle input change', e.target)
+                //setModalChatID(e.target.value)
     }
     const handleCamera = () => {
                 openUserMedia();
@@ -36,15 +36,15 @@ const ChatRoom = () => {
                 document.querySelector('#createBtn').addEventListener('click', handleCreateRoom);
                 document.querySelector('#joinBtn').addEventListener('click', joinRoom);
                        if(!isHost){
-            setCreateRoomBtn(false)
-        }
+                            setCreateRoomBtn(false)
+                        }
     }, [])
 
     const [createdRoom, setCreatedRoom] = useState(false)
     const [cameraIsOn, setCameraIsOn] = useState(false)
     const [chatRoomID, setChatID] = useState(false)
     const { pathname } = useLocation();
-    setChatID(pathname.substring(pathname.lastIndexOf('/') + 1));
+    const chatID = pathname.substring(pathname.lastIndexOf('/') + 1);
     const isHost = pathname.includes('host');
     const [createRoomBtn, setCreateRoomBtn ] = useState(false)
       
