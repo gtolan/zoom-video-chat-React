@@ -5,14 +5,24 @@ import { useLocation, useHistory, Link } from 'react-router-dom';
 const ChatRoom = () => {
     const currentRoom = createRef()
     const history = useHistory();
-
-    const [modalChatID, setModalChatID] = useState()
+    const [createdRoom, setCreatedRoom] = useState(false)
+    const [cameraIsOn, setCameraIsOn] = useState(false)
+    const location = useLocation()
+    //const { pathname } = useLocation();
+    
+    // const [chatID, setChatID] = useState()
+    const isHost = location.pathname.includes('host');
+    const [createRoomBtn, setCreateRoomBtn ] = useState(false)
+    const chatID = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
+                            console.log(chatID, 'url')
+    // const [modalChatID, setModalChatID] = useState()
     const closeModal = () => {
         history.push("/");
     }
     const inputChange = (e) => {
                 console.log('andle input change', e.target)
                 //setModalChatID(e.target.value)
+                //setChatID(e.target.value)
     }
     const handleCamera = () => {
                 openUserMedia();
@@ -24,7 +34,7 @@ const ChatRoom = () => {
     }
     const shareWithCallee = ()=> {
                 const id = currentRoom.current.innerText;
-                const shareViaWhatsAppLink = `https://wa.me/?text=/join-meeting-room/${id}`  //urlencodedtext
+                const shareViaWhatsAppLink = `https://wa.me/?text=/${id}`  //urlencodedtext
                 const win = window.open(shareViaWhatsAppLink, "_blank");
                 win.focus();
     }
@@ -36,17 +46,14 @@ const ChatRoom = () => {
                 document.querySelector('#createBtn').addEventListener('click', handleCreateRoom);
                 document.querySelector('#joinBtn').addEventListener('click', joinRoom);
                        if(!isHost){
-                            setCreateRoomBtn(false)
+                            setCreateRoomBtn(false);
+                            
+                           // setChatID(chatURL)
                         }
+                        
     }, [])
 
-    const [createdRoom, setCreatedRoom] = useState(false)
-    const [cameraIsOn, setCameraIsOn] = useState(false)
-    const [chatRoomID, setChatID] = useState(false)
-    const { pathname } = useLocation();
-    const chatID = pathname.substring(pathname.lastIndexOf('/') + 1);
-    const isHost = pathname.includes('host');
-    const [createRoomBtn, setCreateRoomBtn ] = useState(false)
+    
       
     
     return (
@@ -102,7 +109,7 @@ const ChatRoom = () => {
         </main>
          <div className={`callee-modal ${isHost ? '' : 'active'}`}>
                  {/* <h4 className="modal-welcome">Join your Meeting</h4> */}
-                    <input type="text" id="join-room-id" name="join-room-id" className="room-input" value={chatRoomID} onChange={inputChange} placeholder="your meeting ID"/>
+                    <input type="text" id="join-room-id" name="join-room-id" className="room-input" value={chatID} onChange={inputChange} placeholder="your meeting ID"/>
                         <div className="modal-controls">
                             <button type="button" className="cancel" onClick={closeModal} data-mdc-dialog-action="no">
                                 <span className="mdc-button__label">Cancel</span>
