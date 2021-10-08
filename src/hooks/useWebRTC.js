@@ -1,8 +1,4 @@
-import { useState } from 'react';
-// import { collection, addDoc, getDocs } from "firebase/firestore"; 
-// import { getFirestore, collection, getDocs, setDoc } from 'firebase/firestore/lite';
-
-import { doc, getDocs,getDoc, addDoc, collection, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, getDoc, addDoc, collection, setDoc, onSnapshot, updateDoc } from "firebase/firestore";
 
 import db from '../firebaseInit';
 
@@ -23,7 +19,6 @@ const useWebRTC = () => {
     let peerConnection = null;
     let localStream = null;
     let remoteStream = null;
-    let docRef;
     let roomId = null;
     let roomReady = false;
 
@@ -33,7 +28,7 @@ const useWebRTC = () => {
         //UI state change
         document.querySelector('#createBtn').disabled = true;
         document.querySelector('#joinBtn').disabled = true;
-
+        document.querySelector('#shareBtn').classList.remove('hide');
         //Create DB ref
         const roomRefDB = doc(collection(db, "Rooms"));
 
@@ -45,12 +40,11 @@ const useWebRTC = () => {
 
         //Get local stream and add it to peer connection
         localStream.getTracks().forEach(track => {
-             console.log('localStream ADD')
+            //console.log('localStream ADD')
             peerConnection.addTrack(track, localStream);
         });
   
         // await doc(collection(roomRefDB,"callerCandidates"));
-
         peerConnection.addEventListener('icecandidate', async (event) => {
             if (!event.candidate) {
             console.log('Got final candidate!');
@@ -58,15 +52,15 @@ const useWebRTC = () => {
             }
             // console.log('Got candidate: ', event.candidate);
             //write ICE candidates for Caller to Room
-            docRef = await addDoc(collection(roomRefDB, 'callerCandidatesCollection'), event.candidate.toJSON());
+       
+        await addDoc(collection(roomRefDB, 'callerCandidatesCollection'), event.candidate.toJSON());
 
         });
 
         //Create Offer
         const offer = await peerConnection.createOffer();
         await peerConnection.setLocalDescription(offer);
-        console.log('LOCAL DESC SET');
-        console.log('Created offer:', offer);
+        // console.log('LOCAL DESC SET');
 
         const roomWithOffer = {
             'offer': {
@@ -78,9 +72,9 @@ const useWebRTC = () => {
         await setDoc(roomRefDB, roomWithOffer);
 
         roomId = roomRefDB.id;
-        console.log(`New room created with SDP offer. Room ID: ${roomRefDB.id}`);
+        //console.log(`New room created with SDP offer. Room ID: ${roomRefDB.id}`);
         document.querySelector(
-            '#currentRoom').innerText = `Current room is ${roomRefDB.id} - You are the caller!`;
+            '#currentRoom').innerText = `${roomRefDB.id}`;
         // Code for showing Room ID above
 
         // Listening for remote session description below       
@@ -192,6 +186,7 @@ const useWebRTC = () => {
         console.log('Created answer:', answer);
         await peerConnection.setLocalDescription(answer);
         console.log('LOCAL DESC SET');
+        
 
         const roomWithAnswer = {
         answer: {
