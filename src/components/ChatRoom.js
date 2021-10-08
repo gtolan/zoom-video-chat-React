@@ -24,7 +24,7 @@ const ChatRoom = () => {
     }
     const shareWithCallee = ()=> {
                 const id = currentRoom.current.innerText;
-                const shareViaWhatsAppLink = `https://wa.me/?text=${id}`  //urlencodedtext
+                const shareViaWhatsAppLink = `https://wa.me/?text=/join-meeting-room/${id}`  //urlencodedtext
                 const win = window.open(shareViaWhatsAppLink, "_blank");
                 win.focus();
     }
