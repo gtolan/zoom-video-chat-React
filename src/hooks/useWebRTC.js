@@ -74,7 +74,7 @@ const useWebRTC = () => {
         let host = 'https://zzoom-chat.web.app/'
         //console.log(`New room created with SDP offer. Room ID: ${roomRefDB.id}`);
         document.querySelector(
-            '#currentRoom').innerText = `${host}${roomRefDB.id}`;
+            '#currentRoom').innerText = `${host}join-meeting-room/${roomRefDB.id}`;
             document.querySelector(
             '#currentRoom').href = `${host}join-meeting-room/${roomRefDB.id}`;
         // Code for showing Room ID above
