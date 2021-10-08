@@ -15,14 +15,15 @@ const ChatRoom = () => {
     const [createRoomBtn, setCreateRoomBtn ] = useState(false)
     const chatID = location.pathname.substring(location.pathname.lastIndexOf('/') + 1);
                             console.log(chatID, 'url')
+    const [roomNum, setRoomNum] = useState(chatID)
     // const [modalChatID, setModalChatID] = useState()
     const closeModal = () => {
         history.push("/");
     }
     const inputChange = (e) => {
-                console.log('andle input change', e.target)
+                console.log('andle input change', e.target.value)
                 //setModalChatID(e.target.value)
-                //setChatID(e.target.value)
+                setRoomNum(e.target.value)
     }
     const handleCamera = () => {
                 openUserMedia();
@@ -109,7 +110,7 @@ const ChatRoom = () => {
         </main>
          <div className={`callee-modal ${isHost ? '' : 'active'}`}>
                  {/* <h4 className="modal-welcome">Join your Meeting</h4> */}
-                    <input type="text" id="join-room-id" name="join-room-id" className="room-input" value={chatID} onChange={inputChange} placeholder="your meeting ID"/>
+                    <input type="text" id="join-room-id" name="join-room-id" className="room-input" value={roomNum} onChange={inputChange} placeholder="your meeting ID"/>
                         <div className="modal-controls">
                             <button type="button" className="cancel" onClick={closeModal} data-mdc-dialog-action="no">
                                 <span className="mdc-button__label">Cancel</span>
