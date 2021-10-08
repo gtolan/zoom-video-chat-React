@@ -10,8 +10,9 @@ const ChatRoom = () => {
     const closeModal = () => {
         history.push("/");
     }
-    const inputChange = () => {
+    const inputChange = (e) => {
                 console.log('andle input change')
+                setChatID(e.target.value)
     }
     const handleCamera = () => {
                 openUserMedia();
@@ -41,8 +42,9 @@ const ChatRoom = () => {
 
     const [createdRoom, setCreatedRoom] = useState(false)
     const [cameraIsOn, setCameraIsOn] = useState(false)
+    const [chatRoomID, setChatID] = useState(false)
     const { pathname } = useLocation();
-    const chatRoomID = pathname.substring(pathname.lastIndexOf('/') + 1)
+    setChatID(pathname.substring(pathname.lastIndexOf('/') + 1));
     const isHost = pathname.includes('host');
     const [createRoomBtn, setCreateRoomBtn ] = useState(false)
       
@@ -58,13 +60,7 @@ const ChatRoom = () => {
             </div>
 
             <section>
-                <div className="room-id-edit">
-                    <h5>Enter ID for room to join:</h5>
-                    <div className="mdc-text-field">
-                        <input onChange={inputChange} type="text" id="room-id" value={chatRoomID} className="mdc-text-field__input"/>
-                        <label className="mdc-floating-label" htmlFor="my-text-field">Room ID</label>                 
-                    </div>   
-                </div>         
+      
                       
                 <div id="controls">
                     <button id="cameraBtn" onClick={handleCamera}>
